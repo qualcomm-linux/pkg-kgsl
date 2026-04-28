@@ -1,5 +1,9 @@
-kgsl (0.0.1) UNRELEASED; urgency=medium
+kgsl (1.0.1-1) UNRELEASED; urgency=medium
 
+  [ kgsl.maintainers ]
   * Initial release.
 
- -- kgsl.maintainers <kgsl.maintainers@qti.qualcomm.com>  Thu, 23 Apr 2026 17:16:31 +0530
+  [ GitHub Service Bot ]
+  * New upstream release
+
+ -- GitHub Service Bot <githubservice@qti.qualcomm.com>  Tue, 28 Apr 2026 17:06:25 +0000
