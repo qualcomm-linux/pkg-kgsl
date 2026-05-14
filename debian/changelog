@@ -1,4 +1,4 @@
-kgsl (1.0.2-1) UNRELEASED; urgency=medium
+kgsl (1.0.2-1) unstable; urgency=medium
 
   [ Kgsl Maintainers ]
   * Initial commit
@@ -6,7 +6,7 @@ kgsl (1.0.2-1) UNRELEASED; urgency=medium
   [ GitHub Service Bot ]
   * New upstream release
 
- -- GitHub Service Bot <githubservice@qti.qualcomm.com>  Thu, 14 May 2026 13:06:52 +0000
+ -- GitHub Service Bot <githubservice@qti.qualcomm.com>  Thu, 14 May 2026 13:21:58 +0000
 
 kgsl (1.0.1-1) unstable; urgency=medium
 
