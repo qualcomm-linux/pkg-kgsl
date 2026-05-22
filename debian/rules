@@ -6,8 +6,16 @@ include /usr/share/dpkg/pkg-info.mk
 	dh $@
 
 override_dh_install:
-	mkdir -p debian/kgsl-dkms/usr/src/kgsl-$(DEB_VERSION_UPSTREAM)
-	find . -path ./debian -prune -o -path ./.pc -prune -o -print0|cpio -0p debian/kgsl-dkms/usr/src/kgsl-$(DEB_VERSION_UPSTREAM)/
 	dh_install
+	mkdir -p debian/kgsl-dkms/usr/src/kgsl-$(DEB_VERSION_UPSTREAM)
+	find . -path ./debian -prune -o -path ./.pc -prune -o -path ./.git -prune -o -path ./.github -prune -o -print0|cpio -0p debian/kgsl-dkms/usr/src/kgsl-$(DEB_VERSION_UPSTREAM)/
+	mkdir -p debian/kgsl-dkms/etc/udev/rules.d
+	install -m 644 debian/kgsl-dkms.udev debian/kgsl-dkms/etc/udev/rules.d/50-kgsl.rules
+	# Auto-load kgsl via a dedicated systemd service (modules-load.d triggers
+	# a modprobe SEGV on this platform, so we use a service with exit 0 instead)
+	mkdir -p debian/kgsl-dkms/lib/systemd/system
+	install -m 644 debian/kgsl-dkms.service debian/kgsl-dkms/lib/systemd/system/kgsl-dkms.service
+	mkdir -p debian/kgsl-dkms/usr/lib/kgsl-dkms
+	install -m 755 debian/kgsl-load.sh debian/kgsl-dkms/usr/lib/kgsl-dkms/kgsl-load.sh
 
 override_dh_auto_clean override_dh_auto_build override_dh_auto_test override_dh_auto_install:
