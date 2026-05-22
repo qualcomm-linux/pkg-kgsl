@@ -1,0 +1,37 @@
+#!/bin/sh
+set -e
+
+#DEBHELPER#
+
+case "$1" in
+    configure)
+        # Enable the kgsl-dkms.service to auto-load msm_kgsl on boot.
+        if command -v systemctl > /dev/null 2>&1; then
+            systemctl enable kgsl-dkms.service || true
+        fi
+        # Rebuild module dependency database so that modinfo and modprobe can
+        # locate msm_kgsl.ko by name.  This must run before update-initramfs
+        # so the updated modules.dep is included in the initramfs image.
+        depmod -a "${KVER}" || true
+        # Ensure msm_kgsl is listed in /etc/initramfs-tools/modules so that
+        # update-initramfs includes the .ko in the initramfs image.  The
+        # 'options msm skip_gpu=1' in kgsl-dkms.conf prevents the DRM msm
+        # driver from claiming the GPU; msm_kgsl.ko must be present inside
+        # the initramfs so the 'softdep msm post: msm_kgsl' directive can
+        # load it immediately after msm, before any other driver probes the
+        # GPU device.
+        INITRAMFS_MODULES=/etc/initramfs-tools/modules
+        if [ -f "${INITRAMFS_MODULES}" ]; then
+            if ! grep -qx 'msm_kgsl' "${INITRAMFS_MODULES}"; then
+                echo 'msm_kgsl' >> "${INITRAMFS_MODULES}"
+            fi
+        fi
+        # Rebuild initramfs so both /usr/lib/modprobe.d/kgsl-dkms.conf
+        # (options + softdep) and msm_kgsl.ko are included.  msm loads
+        # during the initramfs phase; the options line ensures skip_gpu=1
+        # is passed and the softdep pulls in msm_kgsl immediately after.
+        if command -v update-initramfs > /dev/null 2>&1; then
+            update-initramfs -u -k "${KVER}" || true
+        fi
+    ;;
+esac
