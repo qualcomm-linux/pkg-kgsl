@@ -1,0 +1,16 @@
+#!/bin/bash
+set -e
+
+#DEBHELPER#
+
+if [ "$1" = "remove" ] || [ "$1" = "purge" ]; then
+    # Rebuild initramfs for all installed kernels after DKMS has
+    # removed msm_kgsl.ko and dpkg has removed /usr/lib/modprobe.d/
+    # kgsl-dkms.conf and /usr/lib/udev/rules.d/50-kgsl.rules.
+    # Running here (postrm) rather than prerm ensures the initramfs
+    # is rebuilt after all package files are gone, so none of them
+    # are included in the new initramfs image.
+    if command -v update-initramfs > /dev/null 2>&1; then
+        update-initramfs -u -k all || true
+    fi
+fi
