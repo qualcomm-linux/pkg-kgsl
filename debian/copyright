@@ -1,4 +1,10 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Disclaimer:
+ This package is not part of the GNU/Linux Debian distribution. It is
+ provided in the contrib archive area as a convenience to Debian users.
+ The contents of this source package are freely licensed under the GPL-2.0
+ license, but it is only useful in combination with the proprietary Adreno
+ driver in non-free.
 
 Files: *
 Copyright: Qualcomm Technologies, Inc. and/or its subsidiaries.
