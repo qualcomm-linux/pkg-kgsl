@@ -1,6 +1,8 @@
 Source: kgsl
 Section: contrib/kernel
 Maintainer: Maintainers.pkg-kgsl <Maintainers.pkg-kgsl@qualcomm.com>
+Uploaders:
+ Agathe Porte <agathe.porte@oss.qualcomm.com>
 Build-Depends: debhelper-compat (= 13), dh-sequence-dkms, cpio
 Standards-Version: 4.7.4
 Homepage: https://github.com/qualcomm-linux/kgsl
