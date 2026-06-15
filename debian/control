@@ -2,7 +2,7 @@ Source: kgsl
 Section: non-free/kernel
 Maintainer: Maintainers.pkg-kgsl <Maintainers.pkg-kgsl@qualcomm.com>
 Build-Depends: debhelper-compat (= 13), dh-sequence-dkms, cpio
-Standards-Version: 4.7.2
+Standards-Version: 4.7.4
 Homepage: https://github.com/qualcomm-linux/kgsl
 
 Package: kgsl-dkms
