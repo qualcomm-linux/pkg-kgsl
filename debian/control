@@ -3,7 +3,6 @@ Section: non-free/kernel
 Priority: optional
 Maintainer: Maintainers.pkg-kgsl <Maintainers.pkg-kgsl@qualcomm.com>
 Build-Depends: debhelper-compat (= 13), dh-sequence-dkms, cpio
-Rules-Requires-Root: no
 Standards-Version: 4.7.2
 Homepage: https://github.com/qualcomm-linux/kgsl
 
