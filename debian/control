@@ -21,4 +21,3 @@ Description: Qualcomm KGSL GPU kernel module (DKMS)
  This package uses DKMS to automatically compile and install the
  msm_kgsl kernel module for the running kernel and any new kernels
  installed in the future.
-
