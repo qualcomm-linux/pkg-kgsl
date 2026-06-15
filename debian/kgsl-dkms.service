@@ -6,7 +6,7 @@ Documentation=file:///usr/share/doc/kgsl-dkms/README.Debian
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/usr/lib/kgsl-dkms/kgsl-load.sh
+ExecStart=/usr/libexec/kgsl-dkms/kgsl-load.sh
 
 [Install]
 WantedBy=multi-user.target
