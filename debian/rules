@@ -10,7 +10,7 @@ override_dh_install:
 	mkdir -p debian/kgsl-dkms/usr/src/kgsl-$(DEB_VERSION_UPSTREAM)
 	find . -path ./debian -prune -o -path ./.pc -prune -o -path ./.git -prune -o -path ./.github -prune -o -print0|cpio -0p debian/kgsl-dkms/usr/src/kgsl-$(DEB_VERSION_UPSTREAM)/
 	mkdir -p debian/kgsl-dkms/etc/udev/rules.d
-	install -m 644 debian/kgsl-dkms.udev debian/kgsl-dkms/etc/udev/rules.d/50-kgsl.rules
+	install -m 644 debian/50-kgsl.rules debian/kgsl-dkms/etc/udev/rules.d/50-kgsl.rules
 	mkdir -p debian/kgsl-dkms/lib/systemd/system
 	install -m 644 debian/kgsl-dkms.service debian/kgsl-dkms/lib/systemd/system/kgsl-dkms.service
 	mkdir -p debian/kgsl-dkms/usr/lib/kgsl-dkms
