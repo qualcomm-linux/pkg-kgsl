@@ -6,6 +6,8 @@ Uploaders:
 Build-Depends: debhelper-compat (= 13), dh-sequence-dkms, cpio
 Standards-Version: 4.7.4
 Homepage: https://github.com/qualcomm-linux/kgsl
+Vcs-Browser: https://github.com/qualcomm-linux/pkg-kgsl
+Vcs-Git: https://github.com/qualcomm-linux/pkg-kgsl.git
 
 Package: kgsl-dkms
 Architecture: all
