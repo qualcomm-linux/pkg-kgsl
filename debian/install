@@ -1,0 +1,4 @@
+debian/kgsl-dkms.service lib/systemd/system
+debian/kgsl-load.sh usr/lib/kgsl-dkms
+debian/50-kgsl.rules etc/udev/rules.d
+
