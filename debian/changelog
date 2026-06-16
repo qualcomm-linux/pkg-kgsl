@@ -1,7 +1,10 @@
 kgsl (1.0.4-1) UNRELEASED; urgency=medium
 
   [ Maintainers.pkg-kgsl ]
-  * WIP — update changelog before next release
+  * Remove duplicate udev rule
+  * Add support for gen8_1_0 GPU.
+  * enable ACD on gen8_1_0.
+  * Fix -ELOOP in firmware load by dispatching to workqueue.
 
   [ GitHub Service Bot ]
   * New upstream release
