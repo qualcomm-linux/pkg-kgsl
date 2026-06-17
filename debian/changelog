@@ -1,3 +1,9 @@
+kgsl (1.0.4-2~) UNRELEASED; urgency=medium
+
+  * WIP — update changelog before next release
+
+ -- Maintainers.pkg-kgsl <Maintainers.pkg-kgsl@qualcomm.com>  Wed, 17 Jun 2026 15:39:24 +0000
+
 kgsl (1.0.4-1) resolute; urgency=medium
 
   [ Maintainers.pkg-kgsl ]
