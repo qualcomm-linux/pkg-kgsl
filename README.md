@@ -4,7 +4,7 @@ This repository has debian packaging rules and scripts for kgsl project present 
 
 ## Branches
 
-- **main**: The primary branch containing workflow logic in the `.github/` folder, along with boilerplate documentation files such as license, contribution guidelines, and this README.
+- **qli-ci**: The primary branch containing workflow logic in the `.github/` folder, along with boilerplate documentation files such as license, contribution guidelines, and this README.
 - **qcom/ubuntu/resolute**: This branch contains kgsl debian packaging rules and scripts for Ubuntu 26.04 (Resolute Raccoon).
 - **qcom/debian/trixie**: This branch contains kgsl debian packaging rules and scripts for Debian Trixie.
 
