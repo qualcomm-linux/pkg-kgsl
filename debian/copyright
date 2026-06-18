@@ -7,6 +7,18 @@ Disclaimer:
  driver in non-free.
 
 Files: *
+Copyright:
+ Qualcomm Technologies, Inc. and/or its subsidiaries.
+ The Linux Foundation
+ Qualcomm Innovation Center, Inc.
+License: GPL-2.0
+Comment:
+ This block lists all found copyright holders, but needs to be refined to the
+ individual file level and include copyright years if we want this to be
+ qualified for an upload to Debian proper. See the following tracking bug:
+ https://github.com/qualcomm-linux/pkg-kgsl/issues/40
+
+Files: debian/*
 Copyright: Qualcomm Technologies, Inc. and/or its subsidiaries.
 License: GPL-2.0
 
