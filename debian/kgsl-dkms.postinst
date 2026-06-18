@@ -1,0 +1,31 @@
+#!/bin/bash
+set -e
+
+#DEBHELPER#
+
+if [ "$1" = "configure" ]; then
+    # Rebuild module dependency database for the running kernel so
+    # modprobe can locate msm_kgsl.ko by name.  Must run after DKMS
+    # has installed the .ko (handled above by dh_dkms) and before
+    # update-initramfs so the updated modules.dep is included.
+    depmod -a || true
+
+    # Ensure msm_kgsl is listed in /etc/initramfs-tools/modules so
+    # update-initramfs includes the .ko in the initramfs image.  The
+    # 'options msm skip_gpu=1' in kgsl-dkms.conf prevents the DRM msm
+    # driver from claiming the GPU; msm_kgsl.ko must be present inside
+    # the initramfs so the 'softdep msm post: msm_kgsl' directive can
+    # load it immediately after msm during early boot.
+    INITRAMFS_MODULES=/etc/initramfs-tools/modules
+    if [ -f "$INITRAMFS_MODULES" ]; then
+        if ! grep -qx 'msm_kgsl' "$INITRAMFS_MODULES"; then
+            echo 'msm_kgsl' >> "$INITRAMFS_MODULES"
+        fi
+    fi
+
+    # Rebuild initramfs for all installed kernels so kgsl-dkms.conf
+    # (options + softdep) and msm_kgsl.ko are both included.
+    if command -v update-initramfs > /dev/null 2>&1; then
+        update-initramfs -u -k all || true
+    fi
+fi

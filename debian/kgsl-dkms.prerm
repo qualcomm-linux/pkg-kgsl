@@ -1,0 +1,13 @@
+#!/bin/bash
+set -e
+
+if [ "$1" = "remove" ] || [ "$1" = "purge" ]; then
+    # Remove msm_kgsl from /etc/initramfs-tools/modules so it is
+    # no longer pulled into the initramfs on future rebuilds.
+    INITRAMFS_MODULES=/etc/initramfs-tools/modules
+    if [ -f "$INITRAMFS_MODULES" ]; then
+        sed -i '/^msm_kgsl$/d' "$INITRAMFS_MODULES"
+    fi
+fi
+
+#DEBHELPER#
