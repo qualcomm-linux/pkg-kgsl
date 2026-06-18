@@ -1,7 +1,21 @@
 PACKAGE_NAME="kgsl"
+# dh_dkms replaces #MODULE_VERSION# at build time with upstream version extracted from debian/changelog
 PACKAGE_VERSION="#MODULE_VERSION#"
+
+# The kernel module built by this source
 BUILT_MODULE_NAME[0]="msm_kgsl"
+BUILT_MODULE_LOCATION[0]=""
 DEST_MODULE_LOCATION[0]="/extra/dkms"
+
+# Build command.
+# The upstream Makefile expects KERNEL_SRC to point to the kernel build tree.
+# KGSL_PATH is auto-detected by the Makefile from its own location, so the
+# config/ and downstream_dependencies/ subdirectories are found automatically.
+MAKE[0]="make KERNEL_SRC=${kernel_source_dir}"
+CLEAN="make KERNEL_SRC=${kernel_source_dir} clean"
 AUTOINSTALL="yes"
-BUILD_EXCLUSIVE_CONFIG="CONFIG_VFIO"
+
+# Build this module only if target kernel was compiled with CONFIG_ARCH_QCOM
+BUILD_EXCLUSIVE_CONFIG="CONFIG_ARCH_QCOM"
+# Build this module only for kernels >= 6.16
 BUILD_EXCLUSIVE_KERNEL_MIN="6.16"

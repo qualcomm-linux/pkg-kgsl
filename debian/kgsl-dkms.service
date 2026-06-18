@@ -1,0 +1,12 @@
+[Unit]
+Description=Load msm_kgsl kernel module
+After=local-fs.target
+Documentation=file:///usr/share/doc/kgsl-dkms/README.Debian
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/libexec/kgsl-dkms/kgsl-load.sh
+
+[Install]
+WantedBy=multi-user.target
