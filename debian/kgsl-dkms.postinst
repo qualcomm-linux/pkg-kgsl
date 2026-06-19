@@ -4,12 +4,6 @@ set -e
 #DEBHELPER#
 
 if [ "$1" = "configure" ]; then
-    # Rebuild module dependency database for the running kernel so
-    # modprobe can locate msm_kgsl.ko by name.  Must run after DKMS
-    # has installed the .ko (handled above by dh_dkms) and before
-    # update-initramfs so the updated modules.dep is included.
-    depmod -a || true
-
     # Ensure msm_kgsl is listed in /etc/initramfs-tools/modules so
     # update-initramfs includes the .ko in the initramfs image.  The
     # 'options msm skip_gpu=1' in kgsl-dkms.conf prevents the DRM msm
