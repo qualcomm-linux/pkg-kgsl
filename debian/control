@@ -2,8 +2,11 @@ Source: kgsl
 Section: contrib/kernel
 Maintainer: Maintainers.pkg-kgsl <Maintainers.pkg-kgsl@qualcomm.com>
 Uploaders:
- Agathe Porte <agathe.porte@oss.qualcomm.com>
-Build-Depends: debhelper-compat (= 13), dh-sequence-dkms, cpio
+ Agathe Porte <agathe.porte@oss.qualcomm.com>,
+Build-Depends:
+ debhelper-compat (= 13),
+ dh-sequence-dkms,
+ cpio,
 Standards-Version: 4.7.4
 Homepage: https://github.com/qualcomm-linux/kgsl
 Vcs-Browser: https://github.com/qualcomm-linux/pkg-kgsl
@@ -11,8 +14,12 @@ Vcs-Git: https://github.com/qualcomm-linux/pkg-kgsl.git
 
 Package: kgsl-dkms
 Architecture: all
-Depends: dkms (>= 2.2), init-system-helpers (>= 1.54~), ${misc:Depends}
-Recommends: linux-headers-generic
+Depends:
+ dkms (>= 2.2),
+ init-system-helpers (>= 1.54~),
+ ${misc:Depends},
+Recommends:
+ linux-headers-generic,
 Description: Qualcomm KGSL GPU kernel module (DKMS)
  Kernel Graphics Support Layer (KGSL) driver for the Adreno family of
  Qualcomm GPUs.
