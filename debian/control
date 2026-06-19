@@ -15,7 +15,6 @@ Vcs-Git: https://github.com/qualcomm-linux/pkg-kgsl.git
 Package: kgsl-dkms
 Architecture: all
 Depends:
- dkms (>= 2.2),
  ${misc:Depends},
 Recommends:
  linux-headers-generic,
