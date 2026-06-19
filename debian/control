@@ -16,7 +16,6 @@ Package: kgsl-dkms
 Architecture: all
 Depends:
  dkms (>= 2.2),
- init-system-helpers (>= 1.54~),
  ${misc:Depends},
 Recommends:
  linux-headers-generic,
