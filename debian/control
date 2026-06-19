@@ -20,6 +20,4 @@ Description: Qualcomm KGSL GPU kernel module (DKMS)
  hardware-accelerated OpenGL, Compute, and Vulkan on Qualcomm Snapdragon
  platforms.
  .
- This package uses DKMS to automatically compile and install the
- msm_kgsl kernel module for the running kernel and any new kernels
- installed in the future.
+ This package contains the source code for the msm_kgsl kernel module.
