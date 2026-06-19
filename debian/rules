@@ -9,7 +9,13 @@ DEST_SRC=debian/kgsl-dkms/usr/src/kgsl-$(DEB_VERSION_UPSTREAM)
 
 execute_after_dh_install:
 	mkdir -p $(DEST_SRC)
-	find . -path ./debian -prune -o -path ./.pc -prune -o -path ./.git -prune -o -path ./.github -prune -o -print0|cpio -0p $(DEST_SRC)/
+
+	find . \
+		-path ./debian -prune \
+		-o -path ./.pc -prune \
+		-o -path ./.git -prune \
+		-o -path ./.github -prune \
+		-o -print0|cpio -0p $(DEST_SRC)/
 
 	rm $(DEST_SRC)/README.md
 	rm $(DEST_SRC)/LICENSE.txt
