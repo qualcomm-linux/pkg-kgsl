@@ -1,7 +1,25 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Disclaimer:
+ This package is not part of the GNU/Linux Debian distribution. It is
+ provided in the contrib archive area as a convenience to Debian users.
+ The contents of this source package are freely licensed under the GPL-2.0
+ license, but it is only useful in combination with the proprietary Adreno
+ driver in non-free.
 
 Files: *
-Copyright: Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries. 
+Copyright:
+ Qualcomm Technologies, Inc. and/or its subsidiaries.
+ The Linux Foundation
+ Qualcomm Innovation Center, Inc.
+License: GPL-2.0
+Comment:
+ This block lists all found copyright holders, but needs to be refined to the
+ individual file level and include copyright years if we want this to be
+ qualified for an upload to Debian proper. See the following tracking bug:
+ https://github.com/qualcomm-linux/pkg-kgsl/issues/40
+
+Files: debian/*
+Copyright: Qualcomm Technologies, Inc. and/or its subsidiaries.
 License: GPL-2.0
 
 License: GPL-2.0

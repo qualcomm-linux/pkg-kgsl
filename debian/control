@@ -1,23 +1,29 @@
 Source: kgsl
-Section: non-free/kernel
-Priority: optional
+Section: contrib/kernel
 Maintainer: Maintainers.pkg-kgsl <Maintainers.pkg-kgsl@qualcomm.com>
-Build-Depends: debhelper-compat (= 13), dh-sequence-dkms, cpio
-Rules-Requires-Root: no
-Standards-Version: 4.7.2
+Uploaders:
+ Agathe Porte <agathe.porte@oss.qualcomm.com>,
+Build-Depends:
+ debhelper-compat (= 13),
+ dh-sequence-dkms,
+ cpio,
+Standards-Version: 4.7.4
 Homepage: https://github.com/qualcomm-linux/kgsl
+Vcs-Browser: https://github.com/qualcomm-linux/pkg-kgsl
+Vcs-Git: https://github.com/qualcomm-linux/pkg-kgsl.git
 
 Package: kgsl-dkms
-Architecture: arm64
-Depends: dkms (>= 2.2), init-system-helpers (>= 1.54~), ${misc:Depends}
-Recommends: linux-headers-generic, grub-efi-arm64
+Architecture: all
+Depends:
+ ${misc:Depends},
+Recommends:
+ linux-headers-generic,
 Description: Qualcomm KGSL GPU kernel module (DKMS)
  Kernel Graphics Support Layer (KGSL) driver for the Adreno family of
- Qualcomm GPUs. Provides GPU memory management, command submission,
- power management, and userspace debug/profiling interfaces for
- hardware-accelerated OpenGL, Compute, and Vulkan on Qualcomm Snapdragon
- platforms.
+ Qualcomm GPUs.
  .
- This package uses DKMS to automatically compile and install the
- msm_kgsl kernel module for the running kernel and any new kernels
- installed in the future.
+ Provides GPU memory management, command submission, power management, and
+ userspace debug/profiling interfaces for hardware-accelerated OpenGL, Compute,
+ and Vulkan on Qualcomm Snapdragon platforms.
+ .
+ This package contains the source code for the msm_kgsl kernel module.

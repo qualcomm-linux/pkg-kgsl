@@ -1,29 +1,5 @@
-kgsl (1.0.3-1) UNRELEASED; urgency=medium
+kgsl (1.0.4-0qcom1) UNRELEASED; urgency=medium
 
-  [ Kgsl Maintainers ]
-  * Initial commit
+  * Initial release
 
-  [ GitHub Service Bot ]
-  * New upstream release
-
- -- GitHub Service Bot <githubservice@qti.qualcomm.com>  Fri, 29 May 2026 10:16:50 +0000
-
-kgsl (1.0.2-1) unstable; urgency=medium
-
-  [ Kgsl Maintainers ]
-  * Initial commit
-
-  [ GitHub Service Bot ]
-  * New upstream release
-
- -- GitHub Service Bot <githubservice@qti.qualcomm.com>  Thu, 14 May 2026 13:21:58 +0000
-
-kgsl (1.0.1-1) unstable; urgency=medium
-
-  [ kgsl.maintainers ]
-  * Initial release.
-
-  [ GitHub Service Bot ]
-  * New upstream release
-
- -- GitHub Service Bot <githubservice@qti.qualcomm.com>  Wed, 29 Apr 2026 12:02:25 +0000
+ -- Agathe Porte <agathe.porte@oss.qualcomm.com>  Mon, 15 Jun 2026 17:20:59 +0200

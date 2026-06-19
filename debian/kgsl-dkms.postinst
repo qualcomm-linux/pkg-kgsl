@@ -3,34 +3,35 @@ set -e
 
 #DEBHELPER#
 
-if [ "$1" = "configure" ]; then
-    # Enable the kgsl-dkms.service to auto-load msm_kgsl on boot.
-    if command -v systemctl > /dev/null 2>&1; then
-        systemctl enable kgsl-dkms.service || true
-    fi
-
-    # Rebuild module dependency database for the running kernel so
-    # modprobe can locate msm_kgsl.ko by name.  Must run after DKMS
-    # has installed the .ko (handled above by dh_dkms) and before
-    # update-initramfs so the updated modules.dep is included.
-    depmod -a || true
-
-    # Ensure msm_kgsl is listed in /etc/initramfs-tools/modules so
-    # update-initramfs includes the .ko in the initramfs image.  The
-    # 'options msm skip_gpu=1' in kgsl-dkms.conf prevents the DRM msm
-    # driver from claiming the GPU; msm_kgsl.ko must be present inside
-    # the initramfs so the 'softdep msm post: msm_kgsl' directive can
-    # load it immediately after msm during early boot.
-    INITRAMFS_MODULES=/etc/initramfs-tools/modules
-    if [ -f "$INITRAMFS_MODULES" ]; then
-        if ! grep -qx 'msm_kgsl' "$INITRAMFS_MODULES"; then
-            echo 'msm_kgsl' >> "$INITRAMFS_MODULES"
+case "$1" in
+    configure)
+        # According to dkms(8), dkms will fail with return code 77 when the module
+	# should not be built, but `dkms autoinstall` will ignore the error and
+	# display a warning instead.
+	#
+	# Make sure msm_kgsl has been installed by dkms autoinstall if it is
+	# enabled, since it might be skipped because of missing kernel options.
+        if ! [ -f /etc/dkms/no-autoinstall ] && ! dkms status | grep -qx 'kgsl/.*:installed' ; then
+            >&2 echo "ERROR: msm_kgsl was not installed by dkms autoinstall, has your kernel the required options?"
+            exit 1
         fi
-    fi
 
-    # Rebuild initramfs for all installed kernels so kgsl-dkms.conf
-    # (options + softdep) and msm_kgsl.ko are both included.
-    if command -v update-initramfs > /dev/null 2>&1; then
-        update-initramfs -u -k all || true
-    fi
-fi
+        # Ensure msm_kgsl will be included in initramfs.
+        #
+        # The 'options msm skip_gpu=1' in kgsl-dkms.conf prevents the DRM msm
+        # driver from claiming the GPU; msm_kgsl.ko must be present inside the
+        # initramfs so the 'softdep msm post: msm_kgsl' directive can load it
+        # immediately after msm during early boot.
+        INITRAMFS_MODULES=/etc/initramfs-tools/modules
+        if [ -f "$INITRAMFS_MODULES" ]; then
+            if ! grep -qx 'msm_kgsl' "$INITRAMFS_MODULES"; then
+                echo 'msm_kgsl' >> "$INITRAMFS_MODULES"
+            fi
+        fi
+
+        # Rebuild initramfs with modprobe.d/kgsl-dkms.conf and msm_kgsl.ko
+        if command -v update-initramfs > /dev/null 2>&1; then
+            update-initramfs -u -k all || true
+        fi
+        ;;
+esac
