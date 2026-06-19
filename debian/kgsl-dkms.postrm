@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e
 
-#DEBHELPER#
-
 if [ "$1" = "remove" ] || [ "$1" = "purge" ]; then
     # Rebuild initramfs for all installed kernels after DKMS has
     # removed msm_kgsl.ko and dpkg has removed /usr/lib/modprobe.d/
@@ -14,3 +12,5 @@ if [ "$1" = "remove" ] || [ "$1" = "purge" ]; then
         update-initramfs -u -k all || true
     fi
 fi
+
+#DEBHELPER#
