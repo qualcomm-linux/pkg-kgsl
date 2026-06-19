@@ -15,9 +15,10 @@ Depends: dkms (>= 2.2), init-system-helpers (>= 1.54~), ${misc:Depends}
 Recommends: linux-headers-generic
 Description: Qualcomm KGSL GPU kernel module (DKMS)
  Kernel Graphics Support Layer (KGSL) driver for the Adreno family of
- Qualcomm GPUs. Provides GPU memory management, command submission,
- power management, and userspace debug/profiling interfaces for
- hardware-accelerated OpenGL, Compute, and Vulkan on Qualcomm Snapdragon
- platforms.
+ Qualcomm GPUs.
+ .
+ Provides GPU memory management, command submission, power management, and
+ userspace debug/profiling interfaces for hardware-accelerated OpenGL, Compute,
+ and Vulkan on Qualcomm Snapdragon platforms.
  .
  This package contains the source code for the msm_kgsl kernel module.
