@@ -13,5 +13,8 @@ MAKE[0]="make KERNEL_SRC=${kernel_source_dir}"
 CLEAN="make KERNEL_SRC=${kernel_source_dir} clean"
 AUTOINSTALL="yes"
 
-BUILD_EXCLUSIVE_CONFIG="CONFIG_ARCH_QCOM"
+# CONFIG_DEVFREQ: https://github.com/qualcomm-linux/kgsl/issues/18
+# CONFIG_SYNC_FILE: https://github.com/qualcomm-linux/kgsl/issues/17
+BUILD_EXCLUSIVE_CONFIG="CONFIG_ARCH_QCOM CONFIG_DEVFREQ CONFIG_SYNC_FILE"
+
 BUILD_EXCLUSIVE_KERNEL_MIN="6.16"
