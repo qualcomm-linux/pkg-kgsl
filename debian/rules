@@ -12,14 +12,13 @@ execute_after_dh_install:
 
 	find . \
 		-path ./debian -prune \
-		-o -path ./.pc -prune \
 		-o -path ./.git -prune \
 		-o -path ./.github -prune \
+		-o -path ./.gitignore -prune \
+		-o -path ./.pc -prune \
+		-o -path ./LICENSE.txt -prune \
+		-o -path ./README.md -prune \
 		-o -print0|cpio -0p $(DEST_SRC)/
-
-	rm $(DEST_SRC)/README.md
-	rm $(DEST_SRC)/LICENSE.txt
-	rm $(DEST_SRC)/.gitignore
 
 
 override_dh_auto_clean:
