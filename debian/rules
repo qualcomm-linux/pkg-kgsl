@@ -8,7 +8,7 @@ include /usr/share/dpkg/pkg-info.mk
 override_dh_install:
 	dh_install
 	mkdir -p debian/kgsl-dkms/usr/src/kgsl-$(DEB_VERSION_UPSTREAM)
-	find . -path ./debian -prune -o -path ./.pc -prune -o -path ./.git -prune -o -path ./.github -prune -o -print0|cpio -0p debian/kgsl-dkms/usr/src/kgsl-$(DEB_VERSION_UPSTREAM)/
+	find . -path ./debian -prune -o -path ./.pc -prune -o -path ./.git -prune -o -path ./.github -prune -o -path ./.gitignore -prune -o -print0|cpio -0p debian/kgsl-dkms/usr/src/kgsl-$(DEB_VERSION_UPSTREAM)/
 	# modprobe options + softdep: pass skip_gpu=1 to msm so the DRM driver
 	# does not claim the GPU, then pull in msm_kgsl via softdep post.
 	# Installed to /usr/lib/modprobe.d/ (not /etc/) so it is treated as a
