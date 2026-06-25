@@ -28,10 +28,5 @@ case "$1" in
                 echo 'msm_kgsl' >> "$INITRAMFS_MODULES"
             fi
         fi
-
-        # Rebuild initramfs with modprobe.d/kgsl-dkms.conf and msm_kgsl.ko
-        if command -v update-initramfs > /dev/null 2>&1; then
-            update-initramfs -u -k all || true
-        fi
         ;;
 esac
