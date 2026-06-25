@@ -22,10 +22,4 @@ if [ "$1" = "configure" ]; then
             echo 'msm_kgsl' >> "$INITRAMFS_MODULES"
         fi
     fi
-
-    # Rebuild initramfs for all installed kernels so kgsl-dkms.conf
-    # (options + softdep) and msm_kgsl.ko are both included.
-    if command -v update-initramfs > /dev/null 2>&1; then
-        update-initramfs -u -k all || true
-    fi
 fi
