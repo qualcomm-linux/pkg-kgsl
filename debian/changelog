@@ -1,5 +1,6 @@
-kgsl (1.0.4-0qli1~) UNRELEASED; urgency=medium
+kgsl (1.0.4-0qli1) forky; urgency=medium
 
+  [ Agathe Porte ]
   * Initial release
 
- -- Agathe Porte <agathe.porte@oss.qualcomm.com>  Mon, 15 Jun 2026 17:20:59 +0200
+ -- root <root@e1699f9a3761>  Thu, 25 Jun 2026 13:42:54 +0000
