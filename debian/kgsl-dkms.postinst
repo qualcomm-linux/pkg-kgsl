@@ -9,17 +9,4 @@ if [ "$1" = "configure" ]; then
     # has installed the .ko (handled above by dh_dkms) and before
     # update-initramfs so the updated modules.dep is included.
     depmod -a || true
-
-    # Ensure msm_kgsl is listed in /etc/initramfs-tools/modules so
-    # update-initramfs includes the .ko in the initramfs image.  The
-    # 'options msm skip_gpu=1' in kgsl-dkms.conf prevents the DRM msm
-    # driver from claiming the GPU; msm_kgsl.ko must be present inside
-    # the initramfs so the 'softdep msm post: msm_kgsl' directive can
-    # load it immediately after msm during early boot.
-    INITRAMFS_MODULES=/etc/initramfs-tools/modules
-    if [ -f "$INITRAMFS_MODULES" ]; then
-        if ! grep -qx 'msm_kgsl' "$INITRAMFS_MODULES"; then
-            echo 'msm_kgsl' >> "$INITRAMFS_MODULES"
-        fi
-    fi
 fi
