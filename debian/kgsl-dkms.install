@@ -1,2 +1,1 @@
-debian/50-kgsl.rules usr/lib/udev/rules.d
-debian/kgsl-dkms.conf usr/lib/modprobe.d
+debian/tree/* /

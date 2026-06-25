@@ -15,18 +15,5 @@ case "$1" in
             >&2 echo "ERROR: msm_kgsl was not installed by dkms autoinstall, has your kernel the required options?"
             exit 1
         fi
-
-        # Ensure msm_kgsl will be included in initramfs.
-        #
-        # The 'options msm skip_gpu=1' in kgsl-dkms.conf prevents the DRM msm
-        # driver from claiming the GPU; msm_kgsl.ko must be present inside the
-        # initramfs so the 'softdep msm post: msm_kgsl' directive can load it
-        # immediately after msm during early boot.
-        INITRAMFS_MODULES=/etc/initramfs-tools/modules
-        if [ -f "$INITRAMFS_MODULES" ]; then
-            if ! grep -qx 'msm_kgsl' "$INITRAMFS_MODULES"; then
-                echo 'msm_kgsl' >> "$INITRAMFS_MODULES"
-            fi
-        fi
         ;;
 esac
