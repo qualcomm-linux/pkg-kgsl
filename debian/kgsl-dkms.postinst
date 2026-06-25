@@ -4,11 +4,6 @@ set -e
 #DEBHELPER#
 
 if [ "$1" = "configure" ]; then
-    # Enable the kgsl-dkms.service to auto-load msm_kgsl on boot.
-    if command -v systemctl > /dev/null 2>&1; then
-        systemctl enable kgsl-dkms.service || true
-    fi
-
     # Rebuild module dependency database for the running kernel so
     # modprobe can locate msm_kgsl.ko by name.  Must run after DKMS
     # has installed the .ko (handled above by dh_dkms) and before
