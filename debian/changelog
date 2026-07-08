@@ -1,15 +1,15 @@
-kgsl (1.0.4-0qli1~bpo14+1~) UNRELEASED; urgency=medium
+kgsl (1.0.4-0qli2~bpo13+1~) UNRELEASED; urgency=medium
 
-  * Unreleased changes
-
- -- root <root@e1074bcb064f>  Mon, 29 Jun 2026 13:23:33 +0000
-
-kgsl (1.0.4-0qli1~bpo13+1) trixie; urgency=medium
-
-  [ Agathe Porte ]
   * Rebuild for trixie.
 
- -- root <root@d93705e99685>  Mon, 29 Jun 2026 13:18:29 +0000
+ -- Agathe Porte <agathe.porte@oss.qualcomm.com>  Wed, 08 Jul 2026 16:07:47 +0200
+
+kgsl (1.0.4-0qli2) forky; urgency=medium
+
+  [ Shivam Rawat ]
+  * d/kgsl-dkms.dkms: correct misspelled CONFIG_DEVFREQ configs
+
+ -- root <root@a13e21e92edb>  Wed, 08 Jul 2026 14:03:19 +0000
 
 kgsl (1.0.4-0qli1) forky; urgency=medium
 
