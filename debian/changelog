@@ -1,9 +1,9 @@
-kgsl (1.0.4-0qli2~) UNRELEASED; urgency=medium
+kgsl (1.0.4-0qli2) forky; urgency=medium
 
   [ Shivam Rawat ]
   * d/kgsl-dkms.dkms: correct misspelled CONFIG_DEVFREQ configs
 
- -- Agathe Porte <agathe.porte@oss.qualcomm.com>  Wed, 08 Jul 2026 15:55:25 +0200
+ -- root <root@a13e21e92edb>  Wed, 08 Jul 2026 14:03:19 +0000
 
 kgsl (1.0.4-0qli1) forky; urgency=medium
 
