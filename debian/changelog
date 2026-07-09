@@ -1,9 +1,9 @@
-kgsl (1.0.4-0qli3~bpo13+1~) UNRELEASED; urgency=medium
+kgsl (1.0.4-0qli3~bpo13+1) trixie; urgency=medium
 
   [ Loïc Minier ]
   * Rebuild for trixie
 
- -- root <root@39fb932623c8>  Wed, 08 Jul 2026 14:13:55 +0000
+ -- root <root@6a7469169eae>  Thu, 09 Jul 2026 23:06:53 +0000
 
 kgsl (1.0.4-0qli3) forky; urgency=medium
 
