@@ -1,4 +1,4 @@
-kgsl (1.0.4-0qli3~) UNRELEASED; urgency=medium
+kgsl (1.0.4-0qli3) forky; urgency=medium
 
   [ Loïc Minier ]
   * d/install: rename to kgsl-dkms.install
@@ -16,7 +16,7 @@ kgsl (1.0.4-0qli3~) UNRELEASED; urgency=medium
   * debian: remove kgsl-dkms.service; already loaded through modprobe.d
     files.
 
- -- root <root@747e65c7516a>  Wed, 08 Jul 2026 14:05:42 +0000
+ -- root <root@eea4d048e40b>  Thu, 09 Jul 2026 20:38:44 +0000
 
 kgsl (1.0.4-0qli2) forky; urgency=medium
 
