@@ -11,7 +11,7 @@ case "$1" in
 	#
 	# Make sure msm_kgsl has been installed by dkms autoinstall if it is
 	# enabled, since it might be skipped because of missing kernel options.
-        if ! [ -f /etc/dkms/no-autoinstall ] && ! dkms status | grep -qx 'kgsl/.*:installed' ; then
+        if ! [ -f /etc/dkms/no-autoinstall ] && ! dkms status | grep -qx 'kgsl/.*: installed' ; then
             >&2 echo "ERROR: msm_kgsl was not installed by dkms autoinstall, has your kernel the required options?"
             exit 1
         fi
