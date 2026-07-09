@@ -16,8 +16,6 @@ Package: kgsl-dkms
 Architecture: all
 Depends:
  ${misc:Depends},
-Recommends:
- linux-headers-generic,
 Description: Qualcomm KGSL GPU kernel module (DKMS)
  Kernel Graphics Support Layer (KGSL) driver for the Adreno family of
  Qualcomm GPUs.

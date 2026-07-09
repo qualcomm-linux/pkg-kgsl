@@ -1,3 +1,0 @@
-This package uses a dedicated systemd service to load the built kernel module
-as using modules-load.d triggers a modprove SEGV on this platform. The service
-will call modproble, and exit 0 to compensate for the SEGV.
