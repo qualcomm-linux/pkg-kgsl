@@ -1,8 +1,8 @@
-kgsl (1.0.4-0qli4~) UNRELEASED; urgency=medium
+kgsl (1.0.8-0qli1~) UNRELEASED; urgency=medium
 
-  * Unreleased changes
+  * New upstream release.
 
- -- root <root@7c27951cae68>  Thu, 09 Jul 2026 22:10:26 +0000
+ -- Agathe Porte <agathe.porte@oss.qualcomm.com>  Mon, 13 Jul 2026 13:35:26 +0200
 
 kgsl (1.0.4-0qli3) forky; urgency=medium
 
