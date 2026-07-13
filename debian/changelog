@@ -1,9 +1,10 @@
-kgsl (1.0.8-0qli1~) UNRELEASED; urgency=medium
+kgsl (1.0.8-0qli1) forky; urgency=medium
 
+  [ Agathe Porte ]
   * New upstream release.
   * Drop dh-install-instead-of-dh-installmodules lintian override
 
- -- Agathe Porte <agathe.porte@oss.qualcomm.com>  Mon, 13 Jul 2026 13:40:30 +0200
+ -- root <root@bf2f71e51210>  Mon, 13 Jul 2026 11:50:26 +0000
 
 kgsl (1.0.4-0qli3) forky; urgency=medium
 
