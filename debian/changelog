@@ -1,15 +1,16 @@
-kgsl (1.0.4-0qli3~bpo13+2~) UNRELEASED; urgency=medium
+kgsl (1.0.8-0qli1~bpo13+1~) UNRELEASED; urgency=medium
 
-  * Unreleased changes
+  * Rebuild for trixie.
 
- -- root <root@c1139b7c34e8>  Thu, 09 Jul 2026 23:09:45 +0000
+ -- Agathe Porte <agathe.porte@oss.qualcomm.com>  Mon, 13 Jul 2026 13:54:23 +0200
 
-kgsl (1.0.4-0qli3~bpo13+1) trixie; urgency=medium
+kgsl (1.0.8-0qli1) forky; urgency=medium
 
-  [ Loïc Minier ]
-  * Rebuild for trixie
+  [ Agathe Porte ]
+  * New upstream release.
+  * Drop dh-install-instead-of-dh-installmodules lintian override
 
- -- root <root@6a7469169eae>  Thu, 09 Jul 2026 23:06:53 +0000
+ -- root <root@bf2f71e51210>  Mon, 13 Jul 2026 11:50:26 +0000
 
 kgsl (1.0.4-0qli3) forky; urgency=medium
 
