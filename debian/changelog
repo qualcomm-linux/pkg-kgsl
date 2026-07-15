@@ -1,12 +1,13 @@
-kgsl (1.0.6-1) UNRELEASED; urgency=medium
+kgsl (1.0.8-1) UNRELEASED; urgency=medium
 
   [ Maintainers.pkg-kgsl ]
   * WIP — update changelog before next release
 
   [ GitHub Service Bot ]
   * New upstream release
+  * New upstream release
 
- -- GitHub Service Bot <githubservice@qti.qualcomm.com>  Fri, 03 Jul 2026 09:06:19 +0000
+ -- GitHub Service Bot <githubservice@qti.qualcomm.com>  Wed, 15 Jul 2026 07:13:08 +0000
 
 kgsl (1.0.4-1) resolute; urgency=medium
 
