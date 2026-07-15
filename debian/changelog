@@ -1,7 +1,18 @@
 kgsl (1.0.6-1) UNRELEASED; urgency=medium
 
   [ Maintainers.pkg-kgsl ]
-  * WIP — update changelog before next release
+  * kgsl: Resolve type confusion for lpac
+  * kgsl: Acquire lock while working on fence lists
+  * kgsl: Remove cmd_list_objs from cmd_list for faults
+  * kgsl: Add support for A704 GPU with standard DT bindings
+  * kgsl: Fix KVA leak
+  * debian: Add source option to ignore .github directory during packaging
+  * debian: Do not install .gitignore
+  * debian: Remove kgsl-dkms.service
+  * debian: Remove intramfs-update calls
+  * debian: Use /usr/share/initramfs-tool/hooks
+  * debian: Remove useless depmod on postinst
+  * debian: Remove useless Recommends
 
   [ GitHub Service Bot ]
   * New upstream release
