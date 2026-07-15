@@ -10,7 +10,6 @@ Homepage: https://github.com/qualcomm-linux/kgsl
 Package: kgsl-dkms
 Architecture: arm64
 Depends: dkms (>= 2.2), init-system-helpers (>= 1.54~), ${misc:Depends}
-Recommends: linux-headers-generic, grub-efi-arm64
 Description: Qualcomm KGSL GPU kernel module (DKMS)
  Kernel Graphics Support Layer (KGSL) driver for the Adreno family of
  Qualcomm GPUs. Provides GPU memory management, command submission,

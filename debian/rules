@@ -8,21 +8,6 @@ include /usr/share/dpkg/pkg-info.mk
 override_dh_install:
 	dh_install
 	mkdir -p debian/kgsl-dkms/usr/src/kgsl-$(DEB_VERSION_UPSTREAM)
-	find . -path ./debian -prune -o -path ./.pc -prune -o -path ./.git -prune -o -path ./.github -prune -o -print0|cpio -0p debian/kgsl-dkms/usr/src/kgsl-$(DEB_VERSION_UPSTREAM)/
-	# modprobe options + softdep: pass skip_gpu=1 to msm so the DRM driver
-	# does not claim the GPU, then pull in msm_kgsl via softdep post.
-	# Installed to /usr/lib/modprobe.d/ (not /etc/) so it is treated as a
-	# regular package file and removed automatically on 'dpkg --remove',
-	# enabling clean msm/kgsl switching without requiring --purge.
-	# initramfs-tools includes /usr/lib/modprobe.d/ in the initramfs, so
-	# the options and softdep are active during early boot.
-	mkdir -p debian/kgsl-dkms/usr/lib/modprobe.d
-	install -m 644 debian/modprobe.d/kgsl-dkms.conf debian/kgsl-dkms/usr/lib/modprobe.d/kgsl-dkms.conf
-	# Auto-load kgsl via a dedicated systemd service (modules-load.d triggers
-	# a modprobe SEGV on this platform, so we use a service with exit 0 instead)
-	mkdir -p debian/kgsl-dkms/usr/lib/systemd/system
-	install -m 644 debian/kgsl-dkms.service debian/kgsl-dkms/usr/lib/systemd/system/kgsl-dkms.service
-	mkdir -p debian/kgsl-dkms/usr/lib/kgsl-dkms
-	install -m 755 debian/kgsl-load.sh debian/kgsl-dkms/usr/lib/kgsl-dkms/kgsl-load.sh
+	find . -path ./debian -prune -o -path ./.pc -prune -o -path ./.git -prune -o -path ./.github -prune -o -path ./.gitignore -prune -o -print0|cpio -0p debian/kgsl-dkms/usr/src/kgsl-$(DEB_VERSION_UPSTREAM)/
 
 override_dh_auto_clean override_dh_auto_build override_dh_auto_test override_dh_auto_install:
