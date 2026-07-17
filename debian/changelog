@@ -1,7 +1,9 @@
 kgsl (1.0.8-1) UNRELEASED; urgency=medium
 
   [ Maintainers.pkg-kgsl ]
-  * WIP — update changelog before next release
+  * kgsl: Fix dev->dma_coherent for v7.2.0.
+  * kgsl: Fix thermal cooling register for v7.2.0.
+  * kgsl: Use dma_fence_wait_any_timeout for WAIT_ANY.
 
   [ GitHub Service Bot ]
   * New upstream release
@@ -11,18 +13,18 @@ kgsl (1.0.8-1) UNRELEASED; urgency=medium
 kgsl (1.0.6-1) resolute; urgency=medium
 
   [ Maintainers.pkg-kgsl ]
-  * kgsl: Resolve type confusion for lpac
-  * kgsl: Acquire lock while working on fence lists
-  * kgsl: Remove cmd_list_objs from cmd_list for faults
-  * kgsl: Add support for A704 GPU with standard DT bindings
-  * kgsl: Fix KVA leak
-  * debian: Add source option to ignore .github directory during packaging
-  * debian: Do not install .gitignore
-  * debian: Remove kgsl-dkms.service
-  * debian: Remove intramfs-update calls
-  * debian: Use /usr/share/initramfs-tool/hooks
-  * debian: Remove useless depmod on postinst
-  * debian: Remove useless Recommends
+  * kgsl: Resolve type confusion for lpac.
+  * kgsl: Acquire lock while working on fence lists.
+  * kgsl: Remove cmd_list_objs from cmd_list for faults.
+  * kgsl: Add support for A704 GPU with standard DT bindings.
+  * kgsl: Fix KVA leak.
+  * debian: Add source option to ignore .github directory during packaging.
+  * debian: Do not install .gitignore.
+  * debian: Remove kgsl-dkms.service.
+  * debian: Remove intramfs-update calls.
+  * debian: Use /usr/share/initramfs-tool/hooks.
+  * debian: Remove useless depmod on postinst.
+  * debian: Remove useless Recommends.
 
   [ GitHub Service Bot ]
   * New upstream release
@@ -32,7 +34,7 @@ kgsl (1.0.6-1) resolute; urgency=medium
 kgsl (1.0.4-1) resolute; urgency=medium
 
   [ Maintainers.pkg-kgsl ]
-  * Remove duplicate udev rule
+  * Remove duplicate udev rule.
   * Add support for gen8_1_0 GPU.
   * enable ACD on gen8_1_0.
   * Fix -ELOOP in firmware load by dispatching to workqueue.
