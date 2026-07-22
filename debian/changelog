@@ -1,8 +1,12 @@
-kgsl (1.0.8-0qli2~) UNRELEASED; urgency=medium
+kgsl (1.0.9-1) UNRELEASED; urgency=medium
 
+  [ root ]
   * Unreleased changes
 
- -- root <root@ddb9440837e0>  Mon, 13 Jul 2026 11:53:07 +0000
+  [ GitHub Service Bot ]
+  * New upstream release
+
+ -- GitHub Service Bot <githubservice@qti.qualcomm.com>  Wed, 22 Jul 2026 05:48:00 +0000
 
 kgsl (1.0.8-0qli1) forky; urgency=medium
 
