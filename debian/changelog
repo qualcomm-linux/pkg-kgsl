@@ -1,4 +1,4 @@
-kgsl (1.0.9-0qli1~) UNRELEASED; urgency=medium
+kgsl (1.0.9-0qli1) forky; urgency=medium
 
   [ Agathe Porte ]
   * Fix d/changelog email entries
@@ -6,7 +6,7 @@ kgsl (1.0.9-0qli1~) UNRELEASED; urgency=medium
   [ GitHub Service Bot ]
   * New upstream release
 
- -- Agathe Porte <agathe.porte@oss.qualcomm.com>  Thu, 23 Jul 2026 14:19:16 +0200
+ -- Debusine Action GitHub Bot <noreply@bot.invalid>  Thu, 23 Jul 2026 12:23:24 +0000
 
 kgsl (1.0.8-0qli1) forky; urgency=medium
 
