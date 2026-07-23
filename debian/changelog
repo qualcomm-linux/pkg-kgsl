@@ -1,7 +1,4 @@
-kgsl (1.0.9-1) UNRELEASED; urgency=medium
-
-  [ root ]
-  * Unreleased changes
+kgsl (1.0.9-0qli1~) UNRELEASED; urgency=medium
 
   [ GitHub Service Bot ]
   * New upstream release
