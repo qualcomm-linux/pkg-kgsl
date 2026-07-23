@@ -13,7 +13,7 @@ kgsl (1.0.8-0qli1~bpo13+1) trixie; urgency=medium
   [ Agathe Porte ]
   * Rebuild for trixie.
 
- -- root <root@e469b0a712ff>  Mon, 13 Jul 2026 11:56:12 +0000
+ -- Debusine Action GitHub Bot <noreply@bot.invalid>  Mon, 13 Jul 2026 11:56:12 +0000
 
 kgsl (1.0.8-0qli1) forky; urgency=medium
 
@@ -48,7 +48,7 @@ kgsl (1.0.4-0qli2~bpo13+1) trixie; urgency=medium
   [ Agathe Porte ]
   * Rebuild for trixie.
 
- -- root <root@6bfe1d93f638>  Wed, 08 Jul 2026 14:11:34 +0000
+ -- Debusine Action GitHub Bot <noreply@bot.invalid>  Wed, 08 Jul 2026 14:11:34 +0000
 
 kgsl (1.0.4-0qli2) forky; urgency=medium
 
