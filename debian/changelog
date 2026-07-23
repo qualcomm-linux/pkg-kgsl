@@ -11,7 +11,7 @@ kgsl (1.0.8-0qli1) forky; urgency=medium
   * New upstream release.
   * Drop dh-install-instead-of-dh-installmodules lintian override
 
- -- root <root@bf2f71e51210>  Mon, 13 Jul 2026 11:50:26 +0000
+ -- Debusine Action GitHub Bot <noreply@bot.invalid>  Mon, 13 Jul 2026 11:50:26 +0000
 
 kgsl (1.0.4-0qli3) forky; urgency=medium
 
@@ -31,18 +31,18 @@ kgsl (1.0.4-0qli3) forky; urgency=medium
   * debian: remove kgsl-dkms.service; already loaded through modprobe.d
     files.
 
- -- root <root@eea4d048e40b>  Thu, 09 Jul 2026 20:38:44 +0000
+ -- Debusine Action GitHub Bot <noreply@bot.invalid>  Thu, 09 Jul 2026 20:38:44 +0000
 
 kgsl (1.0.4-0qli2) forky; urgency=medium
 
   [ Shivam Rawat ]
   * d/kgsl-dkms.dkms: correct misspelled CONFIG_DEVFREQ configs
 
- -- root <root@a13e21e92edb>  Wed, 08 Jul 2026 14:03:19 +0000
+ -- Debusine Action GitHub Bot <noreply@bot.invalid>  Wed, 08 Jul 2026 14:03:19 +0000
 
 kgsl (1.0.4-0qli1) forky; urgency=medium
 
   [ Agathe Porte ]
   * Initial release
 
- -- root <root@e1699f9a3761>  Thu, 25 Jun 2026 13:42:54 +0000
+ -- Debusine Action GitHub Bot <noreply@bot.invalid>  Thu, 25 Jun 2026 13:42:54 +0000
