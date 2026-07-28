@@ -1,7 +1,12 @@
 kgsl (1.0.9-1) UNRELEASED; urgency=medium
 
   [ Maintainers.pkg-kgsl ]
-  * WIP — update changelog before next release
+  * kgsl: Bail on vm_open if refcount is zero.
+  * kgsl: Validate set_draw_state packet size before parsing.
+  * kgsl: Improve error handling for IOMMU domain allocation.
+  * kgsl: Enable preemption on gen8_1_0.
+  * kgsl: Add qcom_clk_dump stub for upstream clk/qcom.h compatibility.
+  * kgsl: Add support for gen7_17_0 GPU with standard DT bindings.
 
   [ GitHub Service Bot ]
   * New upstream release
