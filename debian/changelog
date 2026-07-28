@@ -1,4 +1,4 @@
-kgsl (1.0.9-1) UNRELEASED; urgency=medium
+kgsl (1.0.9-1) resolute; urgency=medium
 
   [ Maintainers.pkg-kgsl ]
   * kgsl: Bail on vm_open if refcount is zero.
@@ -11,7 +11,7 @@ kgsl (1.0.9-1) UNRELEASED; urgency=medium
   [ GitHub Service Bot ]
   * New upstream release
 
- -- GitHub Service Bot <githubservice@qti.qualcomm.com>  Tue, 28 Jul 2026 06:38:02 +0000
+ -- GitHub Service Bot <githubservice@qti.qualcomm.com>  Tue, 28 Jul 2026 11:10:03 +0000
 
 kgsl (1.0.8-1) resolute; urgency=medium
 
