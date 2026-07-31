@@ -1,4 +1,4 @@
-kgsl (1.0.10-1) UNRELEASED; urgency=medium
+kgsl (1.0.10-0qli1) forky; urgency=medium
 
   [ Debusine Action GitHub Bot ]
   * Unreleased changes
@@ -6,7 +6,7 @@ kgsl (1.0.10-1) UNRELEASED; urgency=medium
   [ GitHub Service Bot ]
   * New upstream release
 
- -- GitHub Service Bot <githubservice@qti.qualcomm.com>  Thu, 30 Jul 2026 16:37:34 +0000
+ -- Loïc Minier <loic.minier@oss.qualcomm.com>  Fri, 31 Jul 2026 10:36:05 +0000
 
 kgsl (1.0.9-0qli1) forky; urgency=medium
 
