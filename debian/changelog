@@ -1,7 +1,7 @@
 kgsl (1.0.10-1) UNRELEASED; urgency=medium
 
   [ Maintainers.pkg-kgsl ]
-  * WIP — update changelog before next release
+  * Axiom test for ubuntu
 
   [ GitHub Service Bot ]
   * New upstream release
