@@ -1,10 +1,13 @@
 kgsl (1.0.11-0qli1~) UNRELEASED; urgency=medium
 
   [ Maintainers.pkg-kgsl ]
-  * WIP — update changelog before next release
+  * kgsl: gen8: use synced_poweroff to collapse GX GDSC during recovery.
+  * kgsl: Use kthread_run_worker() to immediately run kthreads.
+  * kgsl: Gate apb_pclk lookups behind CONFIG_QCOM_KGSL_QDSS_STM.
+  * kgsl: gen8: add snapshot for gen8_1_0.
+  * kgsl: Reject mmap from processes with a different mm.
 
   [ GitHub Service Bot ]
-  * New upstream release
   * New upstream release
 
  -- GitHub Service Bot <githubservice@qti.qualcomm.com>  Thu, 13 Aug 2026 10:33:57 +0000
