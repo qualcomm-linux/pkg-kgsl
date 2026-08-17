@@ -1,4 +1,4 @@
-kgsl (1.0.11-0qli1) UNRELEASED; urgency=medium
+kgsl (1.0.11-0qli1) resolute; urgency=medium
 
   [ Maintainers.pkg-kgsl ]
   * kgsl: gen8: use synced_poweroff to collapse GX GDSC during recovery.
@@ -10,7 +10,7 @@ kgsl (1.0.11-0qli1) UNRELEASED; urgency=medium
   [ GitHub Service Bot ]
   * New upstream release
 
- -- GitHub Service Bot <githubservice@qti.qualcomm.com>  Thu, 13 Aug 2026 10:33:57 +0000
+ -- GitHub Service Bot <githubservice@qti.qualcomm.com>  Mon, 17 Aug 2026 23:11:16 +0000
 
 kgsl (1.0.9-1) resolute; urgency=medium
 
