@@ -1,8 +1,9 @@
-kgsl (1.0.10-0qli1~bpo13+2~) UNRELEASED; urgency=medium
+kgsl (1.0.11-0qli1) forky; urgency=medium
 
-  * Unreleased changes
+  [ GitHub Service Bot ]
+  * New upstream release
 
- -- Debusine Action GitHub Bot <noreply@bot.invalid>  Fri, 31 Jul 2026 12:15:17 +0000
+ -- Debusine Action Bot <noreply@bot.invalid>  Tue, 18 Aug 2026 10:19:11 +0000
 
 kgsl (1.0.10-0qli1~bpo13+1) trixie; urgency=medium
 
