@@ -1,8 +1,9 @@
-kgsl (1.0.12-0qli1~bpo13+1~) UNRELEASED; urgency=medium
+kgsl (1.0.12-0qli1~bpo13+1) trixie; urgency=medium
 
+  [ Agathe Porte ]
   * Rebuild for trixie.
 
- -- Agathe Porte <agathe.porte@oss.qualcomm.com>  Tue, 25 Aug 2026 14:01:19 +0200
+ -- Debusine Action Bot <noreply@bot.invalid>  Tue, 25 Aug 2026 12:02:27 +0000
 
 kgsl (1.0.12-0qli1) forky; urgency=medium
 
