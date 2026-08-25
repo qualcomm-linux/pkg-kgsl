@@ -1,7 +1,10 @@
 kgsl (1.0.12-0qli1~) UNRELEASED; urgency=medium
 
   [ Maintainers.pkg-kgsl ]
-  * WIP — update changelog before next release
+  * kgsl: replace qcom_scm PAS wrappers with qcom_pas API.
+  * kgsl: Clear OPP ICC bandwidth votes during power off.
+  * kgsl: gen8: enable hwsched on gen8_1_0.
+  * kgsl: gen8: enable aqe in gen8_1_0.
 
   [ GitHub Service Bot ]
   * New upstream release
