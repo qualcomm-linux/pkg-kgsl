@@ -1,4 +1,4 @@
-kgsl (1.0.12-0qli1~) UNRELEASED; urgency=medium
+kgsl (1.0.12-0qli1) UNRELEASED; urgency=medium
 
   [ Maintainers.pkg-kgsl ]
   * kgsl: replace qcom_scm PAS wrappers with qcom_pas API.
