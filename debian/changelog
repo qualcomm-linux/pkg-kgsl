@@ -1,8 +1,9 @@
-kgsl (1.0.14-0qli1~bpo13+1~) UNRELEASED; urgency=medium
+kgsl (1.0.14-0qli1~bpo13+1) trixie; urgency=medium
 
+  [ Loïc Minier ]
   * Rebuild for trixie-backports.
 
- -- Loïc Minier <loic.minier@oss.qualcomm.com>  Mon, 07 Sep 2026 12:22:16 +0000
+ -- Debusine Action Bot <noreply@bot.invalid>  Mon, 07 Sep 2026 12:24:03 +0000
 
 kgsl (1.0.14-0qli1) forky; urgency=medium
 
