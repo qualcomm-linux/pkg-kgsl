@@ -1,7 +1,10 @@
-kgsl (1.0.14-0qli1~) UNRELEASED; urgency=medium
+kgsl (1.0.14-0qli1) UNRELEASED; urgency=medium
 
   [ Maintainers.pkg-kgsl ]
-  * WIP — update changelog before next release
+  * kgsl: Fix TOCTOU races in IB command stream parser.
+  * kgsl: Add support for Gen8_2_1 GPU with standard DT bindings.
+  * kgsl: Add support for Gen8_0_1 GPU with standard DT bindings.
+  * kgsl: adapt to upstream UBWC API refactor in kernel v7.3.
 
   [ GitHub Service Bot ]
   * New upstream release
