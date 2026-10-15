@@ -1,7 +1,12 @@
-kgsl (1.0.17-0qli1~) UNRELEASED; urgency=medium
+kgsl (1.0.17-0qli1) UNRELEASED; urgency=medium
 
   [ Maintainers.pkg-kgsl ]
-  * WIP — update changelog before next release
+  * kgsl: Add support for Adreno gen7_13_0 GPU.
+  * kgsl: gen8: Fix debugbus block ID truncation on gen8_1_0.
+  * kgsl: Derive MAL from UBWC config API.
+  * kgsl: skip cache maintenance on the shared zero page.
+  * kgsl: build: Skip governor files when simple_ondemand governor is selected.
+  * kgsl: build: Fix governor name string comparison in Kbuild.
 
   [ GitHub Service Bot ]
   * New upstream release
