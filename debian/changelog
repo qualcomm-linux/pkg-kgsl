@@ -1,7 +1,10 @@
-kgsl (2.0.0-0qli1~) UNRELEASED; urgency=medium
+kgsl (2.0.0-0qli1) UNRELEASED; urgency=medium
 
   [ Maintainers.pkg-kgsl ]
-  * WIP — update changelog before next release
+  * kgsl: Use gpucore configs if version absent in ubwc driver.
+  * kgsl: gen8: add Glymur GMU x290.1 compatible.
+  * kgsl: fix missing UBWC mode mapping for minor version variants.
+  * kgsl: build: Stub out governors skipped for simple_ondemand.
 
   [ GitHub Service Bot ]
   * New upstream release
