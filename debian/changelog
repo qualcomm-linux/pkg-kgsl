@@ -1,4 +1,4 @@
-kgsl (2.0.0-0qli1) UNRELEASED; urgency=medium
+kgsl (2.0.0-0qli1) resolute; urgency=medium
 
   [ Maintainers.pkg-kgsl ]
   * kgsl: Use gpucore configs if version absent in ubwc driver.
@@ -9,7 +9,7 @@ kgsl (2.0.0-0qli1) UNRELEASED; urgency=medium
   [ GitHub Service Bot ]
   * New upstream release
 
- -- GitHub Service Bot <githubservice@qti.qualcomm.com>  Wed, 04 Nov 2026 04:31:24 +0000
+ -- GitHub Service Bot <githubservice@qti.qualcomm.com>  Thu, 05 Nov 2026 11:32:19 +0000
 
 kgsl (1.0.17-0qli1) resolute; urgency=medium
 
