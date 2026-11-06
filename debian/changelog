@@ -1,3 +1,9 @@
+kgsl (2.0.0-0qli1~bpo13+1~) UNRELEASED; urgency=medium
+
+  * Rebuild for trixie.
+
+ -- Agathe Porte <agathe.porte@oss.qualcomm.com>  Fri, 06 Nov 2026 10:29:41 +0000
+
 kgsl (2.0.0-0qli1) forky; urgency=medium
 
   [ GitHub Service Bot ]
