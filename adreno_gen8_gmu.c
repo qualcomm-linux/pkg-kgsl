@@ -354,7 +354,8 @@ int gen8_rscc_sleep_sequence(struct adreno_device *adreno_dev)
 	struct kgsl_device *device = KGSL_DEVICE(adreno_dev);
 	struct gen8_gmu_device *gmu = to_gen8_gmu(adreno_dev);
 	int ret;
-	u32 bitmask = adreno_is_gen8_2_x(adreno_dev) ? BIT(30) : BIT(16);
+	u32 bitmask = (adreno_is_gen8_2_x(adreno_dev) || adreno_is_gen8_11_x(adreno_dev)) ?
+		BIT(30) : BIT(16);
 
 	if (!test_bit(GMU_PRIV_FIRST_BOOT_DONE, &gmu->flags))
 		return 0;
@@ -640,15 +641,36 @@ static int gen8_complete_rpmh_votes(struct gen8_gmu_device *gmu,
 
 #define GX_GDSC_POWER_OFF	BIT(0)
 #define GX_CLK_OFF		BIT(1)
+#define MALU_GDSC_POWER_OFF	BIT(9)
+#define MALU_CLK_OFF		BIT(10)
+#define CX_MISC_GX_GDSC_POWER_OFF	BIT(3)
+#define CX_MISC_GX_CLK_OFF		BIT(4)
+
 #define is_on(val)		(!(val & (GX_GDSC_POWER_OFF | GX_CLK_OFF)))
+#define is_cx_misc_gx_on(val)	(!(val & (CX_MISC_GX_GDSC_POWER_OFF | CX_MISC_GX_CLK_OFF)))
+#define is_malu_on(val)		(!(val & (MALU_GDSC_POWER_OFF | MALU_CLK_OFF)))
 
 bool gen8_gmu_gx_is_on(struct adreno_device *adreno_dev)
 {
+	u32 val = 0;
+	struct kgsl_device *device = KGSL_DEVICE(adreno_dev);
+
+	if (adreno_is_gen8_11_x(adreno_dev)) {
+		kgsl_regread(device, GEN8_GPU_CX_MISC_GFX_PWR_CLK_STATUS, &val);
+		return is_cx_misc_gx_on(val);
+	}
+
+	gmu_core_regread(device, GEN8_GMUCX_GFX_PWR_CLK_STATUS, &val);
+	return is_on(val);
+}
+
+bool gen8_gmu_malu_is_on(struct adreno_device *adreno_dev)
+{
 	u32 val;
 
-	gmu_core_regread(KGSL_DEVICE(adreno_dev),
-			GEN8_GMUCX_GFX_PWR_CLK_STATUS, &val);
-	return is_on(val);
+	kgsl_regread(KGSL_DEVICE(adreno_dev),
+			GEN8_GPU_CX_MISC_GFX_PWR_CLK_STATUS, &val);
+	return is_malu_on(val);
 }
 
 bool gen8_gmu_rpmh_pwr_state_is_active(struct kgsl_device *device)
@@ -1123,6 +1145,7 @@ static inline void gen8_gbif_gx_reinit(struct kgsl_device *device)
 		dev_err(device->dev, "GBIF reinit timed out: ack = 0x%x\n", ack);
 }
 
+
 #if (KERNEL_VERSION(6, 3, 0) <= LINUX_VERSION_CODE)
 static void gen8_genpd_synced_poweroff(struct device *dev)
 {
@@ -1133,6 +1156,42 @@ static inline void gen8_genpd_synced_poweroff(struct device *dev)
 {
 }
 #endif
+
+#define MALU_GDSC_TIMEOUT_MS 5
+
+#define GDSC_SW_COLLAPSE BIT(0)
+#define GDSC_CFG_POWER_DOWN_COMPLETE BIT(15)
+
+static void _disable_malu_gdsc(struct adreno_device *adreno_dev)
+{
+	struct kgsl_device *device = KGSL_DEVICE(adreno_dev);
+	u32 reg;
+
+	if (!adreno_dev->malu_enabled)
+		return;
+
+	if (!gen8_gmu_malu_is_on(adreno_dev))
+		return;
+
+	/* Make sure we turn off the MALU if it was on */
+	kgsl_regwrite(device, GEN8_GPU_GX_CLKCTL_GX_MALU_GDSCR, GDSC_SW_COLLAPSE);
+
+	if (gmu_core_timed_poll_check(device, GEN8_GPU_GX_CLKCTL_GX_MALU_CFG_GDSCR,
+		GDSC_CFG_POWER_DOWN_COMPLETE, MALU_GDSC_TIMEOUT_MS,
+		GDSC_CFG_POWER_DOWN_COMPLETE)) {
+
+		gmu_core_regread(device, GEN8_GPU_GX_CLKCTL_GX_MALU_CFG_GDSCR, &reg);
+		dev_err(GMU_PDEV_DEV(device), "malu cfg gdsc stuck on:0x%x\n", reg);
+		return;
+	}
+
+	if (gmu_core_timed_poll_check(device, GEN8_GPU_CX_MISC_GFX_PWR_CLK_STATUS,
+		MALU_GDSC_POWER_OFF | MALU_CLK_OFF, MALU_GDSC_TIMEOUT_MS,
+		MALU_GDSC_POWER_OFF | MALU_CLK_OFF)) {
+		gmu_core_regread(device, GEN8_GPU_CX_MISC_GFX_PWR_CLK_STATUS, &reg);
+		dev_err(GMU_PDEV_DEV(device), "malu gdsc stuck on:0x%x\n", reg);
+	}
+}
 
 static void gen8_gmu_pwrctrl_suspend(struct adreno_device *adreno_dev)
 {
@@ -1165,6 +1224,8 @@ static void gen8_gmu_pwrctrl_suspend(struct adreno_device *adreno_dev)
 	/* Halt CX traffic */
 	_do_gbif_halt(device, GEN8_GBIF_HALT, GEN8_GBIF_HALT_ACK,
 			GEN8_GBIF_ARB_HALT_MASK, "CX");
+
+	_disable_malu_gdsc(adreno_dev);
 
 	/*
 	 * Switch gx gdsc control from GMU to CPU force non-zero reference
@@ -1242,6 +1303,8 @@ void gen8_gmu_suspend(struct adreno_device *adreno_dev, bool force)
 	gen8_gmu_pwrctrl_suspend(adreno_dev);
 
 	gmu_core_disable_clks(device);
+
+	kgsl_pwrctrl_disable_mx_gdsc(device);
 
 	kgsl_pwrctrl_disable_cx_gdsc(device);
 
@@ -1569,6 +1632,10 @@ static int gen8_gmu_first_boot(struct adreno_device *adreno_dev)
 	if (ret)
 		return ret;
 
+	ret = kgsl_pwrctrl_enable_mx_gdsc(device);
+	if (ret)
+		goto cx_gdsc_off;
+
 	ret = gmu_core_enable_clks(device, 0);
 	if (ret)
 		goto gdsc_off;
@@ -1654,8 +1721,9 @@ err:
 
 clks_gdsc_off:
 	gmu_core_disable_clks(device);
-
 gdsc_off:
+	kgsl_pwrctrl_disable_mx_gdsc(device);
+cx_gdsc_off:
 	kgsl_pwrctrl_disable_cx_gdsc(device);
 
 	gmu_core_rdpm_cx_freq_update(device, 0);
@@ -1673,6 +1741,10 @@ static int gen8_gmu_boot(struct adreno_device *adreno_dev)
 	ret = kgsl_pwrctrl_enable_cx_gdsc(device);
 	if (ret)
 		return ret;
+
+	ret = kgsl_pwrctrl_enable_mx_gdsc(device);
+	if (ret)
+		goto cx_gdsc_off;
 
 	ret = gmu_core_enable_clks(device, 0);
 	if (ret)
@@ -1731,8 +1803,9 @@ err:
 
 clks_gdsc_off:
 	gmu_core_disable_clks(device);
-
 gdsc_off:
+	kgsl_pwrctrl_disable_mx_gdsc(device);
+cx_gdsc_off:
 	kgsl_pwrctrl_disable_cx_gdsc(device);
 
 	gmu_core_rdpm_cx_freq_update(device, 0);
@@ -2049,6 +2122,12 @@ int gen8_gmu_probe(struct kgsl_device *device,
 	if (ret)
 		return ret;
 
+	if (gen8_core->gmu_mx_gdsc) {
+		ret = kgsl_pwrctrl_probe_mx_gdsc(device, pdev);
+		if (ret)
+			return ret;
+	}
+
 	ret = gmu_core_clk_probe(device);
 	if (ret)
 		return ret;
@@ -2203,6 +2282,8 @@ static int gen8_gmu_power_off(struct adreno_device *adreno_dev)
 	gen8_hfi_stop(adreno_dev);
 
 	gmu_core_disable_clks(device);
+
+	kgsl_pwrctrl_disable_mx_gdsc(device);
 
 	kgsl_pwrctrl_disable_cx_gdsc(device);
 

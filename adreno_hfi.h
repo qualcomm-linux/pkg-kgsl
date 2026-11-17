@@ -10,7 +10,7 @@
 
 #define HW_FENCE_QUEUE_SIZE		SZ_4K
 #define HFI_QUEUE_SIZE			SZ_4K /* bytes, must be base 4dw */
-#define MAX_RCVD_PAYLOAD_SIZE		16 /* dwords */
+#define MAX_RCVD_PAYLOAD_SIZE		32 /* dwords */
 #define MAX_RCVD_SIZE			(MAX_RCVD_PAYLOAD_SIZE + 3) /* dwords */
 #define HFI_MAX_MSG_SIZE		(SZ_1K)
 
@@ -84,6 +84,7 @@
 #define HFI_FEATURE_IFF_PCLX		32
 #define HFI_FEATURE_SOFT_RESET		0x10000001
 #define HFI_FEATURE_DCVS_PROFILE	0x10000002
+#define HFI_FEATURE_FAST_CONTEXT_DESTROY	0x10000003
 
 /*
  * MINBW_HYST_MASK = 0xffff
@@ -143,6 +144,7 @@ enum hfi_table_type {
 #define HFI_VALUE_DCVS_ENABLE		131
 #define HFI_VALUE_DCVS_TUNING_PARAM	132
 #define HFI_VALUE_RB_GPULEVEL_RULE	133
+#define HFI_VALUE_MALU			135
 #define HFI_VALUE_GLOBAL_TOKEN		0xFFFFFFFF
 
 #define HFI_CTXT_FLAG_PMODE			BIT(0)
@@ -271,6 +273,16 @@ enum hfi_mem_kind {
 	 * related to GMU based DCVS.
 	 */
 	HFI_MEMKIND_FREQMGR_SCRATCH,
+	/**
+	 * @HFI_MEMKIND_DUMMY_CSW_PRIV_NON_SECURE: Used for requesting privileged non
+	 * secure preemption records for the internal dummy buffer
+	 */
+	HFI_MEMKIND_DUMMY_CSW_PRIV_NON_SECURE,
+	/**
+	 * @HFI_MEMKIND_DUMMY_CSW_COUNTER: Used for requesting preemption performance
+	 * counter save/restore buffer for the internal dummy buffer
+	 */
+	HFI_MEMKIND_DUMMY_CSW_COUNTER,
 	HFI_MEMKIND_MAX,
 };
 
@@ -303,6 +315,8 @@ static const char * const hfi_memkind_strings[] = {
 	[HFI_MEMKIND_AQE_BUFFER] = "GMU AQE BUFFER",
 	[HFI_MEMKIND_HW_FENCE_SHADOW] = "GMU HW FENCE SHADOW",
 	[HFI_MEMKIND_FREQMGR_SCRATCH] = "GMU FREQMGR SCRATCH",
+	[HFI_MEMKIND_DUMMY_CSW_PRIV_NON_SECURE] = "GMU DUMMY CSW PRIV NON SECURE",
+	[HFI_MEMKIND_DUMMY_CSW_COUNTER] = "GMU DUMMY CSW COUNTER",
 	[HFI_MEMKIND_MAX] = "GMU UNKNOWN",
 };
 
@@ -686,7 +700,12 @@ struct limits_mitigation_cfg {
 	 *         bits[1:31] Static leakage value
 	 */
 	u32 lkgen;
-	/** @mode: Static or dynamic throttle */
+	/** @mode:
+	 * bit[0]: Static or dynamic throttle
+	 *         0 = (static) throttle to fixed sid level
+	 *         1 = (dynamic) throttle to sid lievel calculated by HW
+	 * bit[1]: select Mx/Bx,Mx = 0 , Bx =1, unused field for gx
+	 */
 	u32 mode;
 	/** @sid_val: SID value for static throttle */
 	u32 sid_val;
@@ -942,6 +961,7 @@ struct hfi_ts_notify_cmd {
 #define CMDBATCH_RECURRING_START   BIT(18)
 #define CMDBATCH_RECURRING_STOP   BIT(19)
 #define CMDBATCH_NOP_SUBMISSION	BIT(20)
+#define CMDBATCH_USES_MALU	BIT(21)
 
 /* This indicates that the SYNCOBJ is kgsl output fence */
 #define GMU_SYNCOBJ_FLAG_KGSL_FENCE_BIT		0
@@ -1554,6 +1574,7 @@ int adreno_hwsched_wait_ack_completion(struct adreno_device *adreno_dev,
  * adreno_hwsched_ctxt_unregister_wait_completion - Wait for HFI ack for context unregister
  * adreno_dev: Pointer to the adreno device
  * dev: Pointer to the device structure
+ * context: Pointer to the context structure
  * ack: Pointer to the pending ack
  * process_msgq: Function pointer to the msgq processing function
  * cmd: Pointer to the hfi packet header and data
@@ -1567,7 +1588,7 @@ int adreno_hwsched_wait_ack_completion(struct adreno_device *adreno_dev,
  */
 int adreno_hwsched_ctxt_unregister_wait_completion(
 	struct adreno_device *adreno_dev,
-	struct device *dev, struct pending_cmd *ack,
+	struct device *dev, struct kgsl_context *context, struct pending_cmd *ack,
 	void (*process_msgq)(struct adreno_device *adreno_dev),
 	struct hfi_unregister_ctxt_cmd *cmd);
 
