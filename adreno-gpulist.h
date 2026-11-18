@@ -3828,7 +3828,7 @@ static const struct adreno_gen8_core adreno_gpu_core_gen8_1_0 = {
 		.ubwc_mode = 5,
 		.mal = 32,
 		.highest_bank_bit = 16,
-		.gpu_model = "Adreno X2-85",
+		.gpu_model = "Adreno X2-90",
 	},
 	.aqefw_name = "gen80100_aqe.fw",
 	.sqefw_name = "gen80100_sqe.fw",
@@ -4384,6 +4384,661 @@ static const struct adreno_a6xx_core adreno_gpu_core_a623 = {
 	.ctxt_record_size = 2496 * 1024,
 };
 
+extern const struct gen8_snapshot_block_list gen8_10_0_snapshot_block_list;
+
+static const struct adreno_gen8_core adreno_gpu_core_gen8_10_0 = {
+	.base = {
+		DEFINE_ADRENO_REV(ADRENO_REV_GEN8_10_0,
+				  UINT_MAX, UINT_MAX, UINT_MAX, ANY_ID),
+		.features = ADRENO_APRIV | ADRENO_IOCOHERENT | ADRENO_BCL | ADRENO_ACD
+			| ADRENO_IFPC | ADRENO_CONTENT_PROTECTION | ADRENO_PREEMPTION,
+		.features_standard = ADRENO_APRIV | ADRENO_IOCOHERENT | ADRENO_PREEMPTION |
+			ADRENO_CONTENT_PROTECTION | ADRENO_SOFTFUSE,
+		.compatible = "qcom,adreno-gpu-gen8-10-0",
+		.gpudev = &adreno_gen8_hwsched_gpudev.base,
+		.perfcounters = &adreno_gen8_perfcounters,
+		.uche_gmem_alignment = SZ_64M,
+		.gmem_size = (15 * SZ_1M + 768 * SZ_1K),
+		.bus_width = 32,
+		.snapshot_size = SZ_8M,
+		.num_ddr_channels = 8,
+		.chipid = 0x44060000,
+		.speedbins = KGSL_SPEEDBINS(
+			{ 0,   0 },
+			{ 388, 1 },
+			{ 357, 2 },
+			{ 284, 3 },
+		),
+		.ubwc_mode = 5,
+		.mal = 32,
+		.highest_bank_bit = 16,
+		.gpu_model = "Adreno X2-85",
+	},
+	.aqefw_name = "gen80100_aqe.fw",
+	.sqefw_name = "gen80100_sqe.fw",
+	.gmufw_name = "gen80100_gmu.bin",
+	.zap_name = "gen80100_zap.mbn",
+	.ao_hwcg = gen8_1_0_ao_hwcg_regs,
+	.ao_hwcg_count = ARRAY_SIZE(gen8_1_0_ao_hwcg_regs),
+	.gbif = gen8_0_0_gbif_cx_regs,
+	.gbif_count = ARRAY_SIZE(gen8_0_0_gbif_cx_regs),
+	.hang_detect_cycles = 0xcfffff,
+	.protected_regs = gen8_1_0_protected_regs,
+	.nonctxt_regs = gen8_1_0_nonctxt_regs,
+	.gmu_hub_clk_freq = 200000000,
+	.fast_bus_hint = true,
+	.acv_perfmode_ddr_freq = MHZ_TO_KBPS(2736, 4),
+	.noc_timeout_us = 3410, /* 3.41 msec */
+	.cl_no_ft_timeout_ms = 6500,
+	.ctxt_record_size = (23088 * SZ_1K),
+	.bcl_data = 1,
+	.gen8_snapshot_block_list = &gen8_10_0_snapshot_block_list,
+	.preempt_level = 1,
+};
+
+static const struct hfi_clx_table_v2_cmd gen8_11_0_clx_table = {
+	.version = (2 << 16) | 1,
+	.domain = {
+		/* GFX domain */
+		{
+			.data0 = CLX_DATA(60, 5, 0, 1),
+			.clxt = 0,
+			.clxh = 0,
+			.urgmode = 1,
+			.lkgen = 0,
+			.currbudget = 100,
+		},
+		/* MxG domain */
+		{
+			.data0 = CLX_DATA(30, 1, 1, 1),
+			.clxt = 0,
+			.clxh = 0,
+			.urgmode = 1,
+			.lkgen = 0,
+			.currbudget = 100,
+		},
+	},
+};
+
+static const struct hfi_clx_table_v2_cmd gen8_14_0_clx_table = {
+	.version = (2 << 16) | 1,
+	.domain = {
+		/* GFX domain */
+		{
+			.data0 = CLX_DATA(60, 4, 1, 1),
+			.clxt = 10,
+			.clxh = 0,
+			.urgmode = 1,
+			.lkgen = 0,
+			.currbudget = 100,
+		},
+		/* MxG domain */
+		{
+			.data0 = CLX_DATA(60, 1, 1, 1),
+			.clxt = 10,
+			.clxh = 0,
+			.urgmode = 1,
+			.lkgen = 0,
+			.currbudget = 100,
+		},
+	},
+};
+
+static const struct hfi_limits_mit_tbl gen8_11_0_limits_mit_tbl[] = {
+	{
+		.feature_id = GMU_MIT_IFF,
+		.domain = GMU_GX_DOMAIN,
+		.feature_rev = 0,
+		.mit_cfg = {
+			.enable = 1,
+			.msg_path = 0,
+			.lkgen = 0,
+			.mode = 0,
+			.sid_val = 0xC,
+			.mit_time = 5,
+			.curr_limit = 30000,
+		}
+	},
+	{
+		.feature_id = GMU_MIT_IFF,
+		.domain = GMU_MX_DOMAIN,
+		.feature_rev = 0,
+		.mit_cfg = {
+			.enable = 1,
+			.msg_path = 0,
+			.lkgen = 0,
+			.mode = BIT(1),
+			.sid_val = 0x12,
+			.mit_time = 2000,
+			.curr_limit = 5000,
+		}
+	},
+	{
+		.feature_id = GMU_MIT_PCLX,
+		.domain = GMU_GX_DOMAIN,
+		.feature_rev = 0,
+		.mit_cfg = {
+			.enable = 1,
+			.msg_path = 0,
+			.lkgen = 0,
+			.mode = 0,
+			.sid_val = 0x8,
+			.mit_time = 3,
+			.curr_limit = 30000,
+		}
+	},
+	{
+		.feature_id = GMU_MIT_PCLX,
+		.domain = GMU_MX_DOMAIN,
+		.feature_rev = 0,
+		.mit_cfg = {
+			.enable = 0,
+			.msg_path = 0,
+			.lkgen = 0,
+			.mode = BIT(1),
+			.sid_val = 0x8,
+			.mit_time = 3,
+			.curr_limit = 5000,
+		}
+	},
+};
+
+static const struct gen8_limits_mit_cfg gen8_11_0_limits_mit_cfg = {
+	.limits_mit_tbl = gen8_11_0_limits_mit_tbl,
+	.len = ARRAY_SIZE(gen8_11_0_limits_mit_tbl),
+};
+
+/* GEN8_11_0 protected register list */
+static const struct gen8_protected_regs gen8_11_0_protected_regs[] = {
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 0, 0x00008, 0x003a3, 0 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 1, 0x003b4, 0x0043f, 0 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 2, 0x00440, 0x0045f, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 3, 0x00580, 0x005df, 0 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 4, 0x005e0, 0x006ff, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 5, 0x0074a, 0x0074f, 0 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 6, 0x00759, 0x00774, 0 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 7, 0x00775, 0x0077f, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 8, 0x00789, 0x00789, 0 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 9, 0x0078c, 0x0079f, 0 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 10, 0x00800, 0x00829, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 11, 0x00837, 0x008e6, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 12, 0x008e7, 0x009b0, 0 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 13, 0x008ec, 0x009af, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 14, 0x009b1, 0x00c01, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 15, 0x00c07, 0x00c0f, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 16, 0x00ce0, 0x00ce1, 0 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 17, 0x00df0, 0x00df0, 0 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 18, 0x00df1, 0x00df1, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 19, 0x00df5, 0x00df8, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 20, 0x00df9, 0x00e00, 0 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 21, 0x00e01, 0x00e01, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 22, 0x00e03, 0x02e02, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 23, 0x03c00, 0x03cc5, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 24, 0x03cc6, 0x03cff, 0 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 25, 0x03d00, 0x05cff, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 26, 0x08600, 0x087ff, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 27, 0x08e00, 0x08eff, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 28, 0x08f00, 0x08f00, 0 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 29, 0x08f01, 0x090bf, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 30, 0x09600, 0x097ff, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 31, 0x0981a, 0x09aff, 0 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 32, 0x09e00, 0x09fff, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 33, 0x0a600, 0x0a7ff, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 34, 0x0a82e, 0x0a82e, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 35, 0x0ae00, 0x0ae00, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 36, 0x0ae02, 0x0ae06, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 37, 0x0ae08, 0x0ae0e, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 38, 0x0ae10, 0x0aecf, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 39, 0x0aed0, 0x0aeff, 0 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 40, 0x0af00, 0x0b17f, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 41, 0x0b600, 0x0d5ff, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 42, 0x0dc00, 0x0fbff, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 43, 0x0fc00, 0x11bff, 0 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 44, 0x18400, 0x1843f, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 45, 0x18440, 0x1857f, 0 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 46, 0x18580, 0x1a57f, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 47, 0x1ac00, 0x1cbff, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 48, 0x1cc00, 0x1ebff, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 49, 0x1f400, 0x1f877, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 50, 0x1f878, 0x1fd7f, 0 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 51, 0x1f930, 0x1fc59, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 52, 0x1fd80, 0x21d7f, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 53, 0x27800, 0x2787f, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 54, 0x27880, 0x27c05, 0 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 55, 0x27882, 0x278b7, 1 },
+	{ GEN8_CP_PROTECT_REG_GLOBAL + 63, 0x27c06, 0x27c06, 1 },
+	{ 0 },
+};
+
+/* GEN8_11_0 noncontext register list */
+static const struct gen8_nonctxt_regs gen8_11_0_nonctxt_regs[] = {
+	{ GEN8_CP_SMMU_STREAM_ID_LPAC, 0x00000101, BIT(PIPE_NONE) },
+	{ GEN8_CP_MULTIDRAW_CNTL, 0x00000001, BIT(PIPE_NONE) },
+	{ GEN8_GRAS_DBG_ECO_CNTL, 0x00000800, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_GRAS_TSEFE_DBG_ECO_CNTL, 0x00200000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_GRAS_NC_MODE_CNTL, 0x00000220, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_PC_AUTO_VERTEX_STRIDE, 0x00000001, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_PC_VIS_STREAM_CNTL, 0x10010000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0x00000002, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	/* BIT(11): Disable skipIdx to avoid PDMA hang with restart-index draws */
+	{ GEN8_PC_CHICKEN_BITS_1, 0x00000803, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_PC_CHICKEN_BITS_2, 0x00000200, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_PC_CHICKEN_BITS_3, 0x00400000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_PC_CHICKEN_BITS_4, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	/*
+	 * BIT(28): Disable GS Quad primitive
+	 * BIT(30): Disable skipIdx to avoid PDMA hang with restart-index draws
+	 */
+	{ GEN8_PC_CHICKEN_BITS_5, BIT(28) | BIT(30), BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_RB_CCU_CNTL, 0x00000068, BIT(PIPE_BR) },
+	/*
+	 * BIT(10): Disable sysmem nonfclear feature
+	 * BIT(9): Disable DINT to c/z be data forwarding
+	 */
+	{ GEN8_RB_CCU_DBG_ECO_CNTL, BIT(10) | BIT(9), BIT(PIPE_BR) },
+	{ GEN8_RB_CCU_NC_MODE_CNTL, 0x00000002, BIT(PIPE_BR) },
+	{ GEN8_RB_CMP_NC_MODE_CNTL, 0x00028000, BIT(PIPE_BR) },
+	/* Disable early EOBlk return */
+	{ GEN8_RB_DBG_ECO_CNTL, BIT(17), BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_RB_GC_GMEM_PROTECT, 0x12000000, BIT(PIPE_BR) },
+	/* Disable pre-mvcc dead draw merge scheme on LRZ-RB */
+	{ GEN8_RB_RBP_CNTL, BIT(6), BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_RB_RESOLVE_PREFETCH_CNTL, 0x00000007, BIT(PIPE_BR) },
+	{ GEN8_RB_CMP_DBG_ECO_CNTL, 0x00004000, BIT(PIPE_BR) },
+	{ GEN8_RBBM_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
+	{ GEN8_RBBM_SLICE_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
+	/* Enable RB BAC strobes */
+	{ GEN8_RBBM_SLICE_PERFCTR_CNTL, BIT(0), BIT(PIPE_NONE) },
+	{ GEN8_RBBM_POWER_UP_RESET_SW_OVERRIDE, 0x70809060, BIT(PIPE_NONE) },
+	{ GEN8_RBBM_POWER_UP_RESET_SW_BV_OVERRIDE, 0x30000000, BIT(PIPE_NONE) },
+	{ GEN8_RBBM_WAIT_IDLE_CLOCKS_CNTL, 0x00000030, BIT(PIPE_NONE) },
+	{ GEN8_RBBM_WAIT_IDLE_CLOCKS_CNTL2, 0x00000030, BIT(PIPE_NONE) },
+	{ GEN8_RBBM_INTERFACE_HANG_INT_CNTL, 0x0fffffff, BIT(PIPE_NONE) },
+	{ GEN8_RBBM_GBIF_CLIENT_QOS_CNTL, 0x22122212, BIT(PIPE_NONE) },
+	{ GEN8_RBBM_CGC_P2S_CNTL, 0x00000040, BIT(PIPE_NONE) },
+	/* Disable VS delay resource optimization */
+	{ GEN8_SP_CHICKEN_BITS, BIT(24), BIT(PIPE_NONE) },
+	{ GEN8_SP_CHICKEN_BITS_2, 0x00820800, BIT(PIPE_NONE) },
+	{ GEN8_SP_CHICKEN_BITS_3, 0x00300000, BIT(PIPE_NONE) },
+	/* Disable last-use skip for gpr ALU Write Enable */
+	{ GEN8_SP_CHICKEN_BITS_5, BIT(3), BIT(PIPE_NONE) },
+	{ GEN8_SP_NC_MODE_CNTL, 0x00000002, BIT(PIPE_NONE) },
+	{ GEN8_SP_PERFCTR_SHADER_MASK, 0x0000003f, BIT(PIPE_NONE) },
+	{ GEN8_SP_HLSQ_DBG_ECO_CNTL, 0x04000000, BIT(PIPE_NONE) },
+	/* HLSQ ignores the shared constant feedback from SP:MAS */
+	{ GEN8_SP_HLSQ_DBG_ECO_CNTL_1, BIT(17), BIT(PIPE_NONE) },
+	/* Disable HLSQ large instruction async mode check */
+	{ GEN8_SP_HLSQ_DBG_ECO_CNTL_3, BIT(1), BIT(PIPE_NONE) },
+	{ GEN8_SP_HLSQ_TIMEOUT_THRESHOLD_DP, 0x00000080, BIT(PIPE_NONE) },
+	{ GEN8_SP_READ_SEL, 0x0001ff00, BIT(PIPE_NONE) },
+	{ GEN8_SP_L0_PERF_TUNE, 0x00000024, BIT(PIPE_NONE) },
+	/* BIT(20): Disable alpha only optimization in TP */
+	{ GEN8_TPL1_DBG_ECO_CNTL, 0x10100000, BIT(PIPE_NONE) },
+	{ GEN8_TPL1_DBG_ECO_CNTL1, 0x00000720, BIT(PIPE_NONE) },
+	/* GEN8_TPL1_NC_MODE_CNTL explicitly set elsewhere */
+	{ GEN8_UCHE_MODE_CNTL, 0x80080000, BIT(PIPE_NONE) },
+	{ GEN8_UCHE_CCHE_MODE_CNTL, 0x00001000, BIT(PIPE_NONE) },
+	/* Disable return data forwarding in UCHE */
+	{ GEN8_UCHE_DBG_ECO_CNTL_0, BIT(31), BIT(PIPE_NONE) },
+	/* BIT(22): Skip FullDirty flag during tag check in UCHE */
+	{ GEN8_UCHE_HW_DBG_CNTL, 0x01410000, BIT(PIPE_NONE) },
+	{ GEN8_UCHE_CCHE_CACHE_WAYS, 0x00000800, BIT(PIPE_NONE) },
+	{ GEN8_UCHE_GBIF_GX_CONFIG, 0x010240e0, BIT(PIPE_NONE) },
+	{ GEN8_UCHE_VARB_IDLE_TIMEOUT, 0x00000020, BIT(PIPE_NONE) },
+	/* Disable VFD sideband compression */
+	{ GEN8_VFD_DBG_ECO_CNTL, 0x00008400, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_VFD_CB_BV_THRESHOLD, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_VFD_CB_BR_THRESHOLD, 0x00600060, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_VFD_CB_BUSY_REQ_CNT, 0x00200020, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_VFD_CB_LP_REQ_CNT, 0x00080020, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_VPC_FLATSHADE_MODE_CNTL, 0x00000001, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_VSC_VISIBILITY_FLUSH_CNTL, 0x00080004, BIT(PIPE_NONE) },
+	{ 0 },
+};
+
+extern const struct gen8_snapshot_block_list gen8_11_0_snapshot_block_list;
+
+static const struct kgsl_regmap_list gen8_11_0_gbif_cx_regs[] = {
+	{ GEN8_GBIF_QSB_SIDE0, 0x00071e20 },
+	{ GEN8_GBIF_QSB_SIDE1, 0x00071e20 },
+	{ GEN8_GBIF_QSB_SIDE2, 0x00071e20 },
+	{ GEN8_GBIF_QSB_SIDE3, 0x00071e20 },
+	{ GEN8_GBIF_CX_CONFIG, 0x20023020 },
+	{ GEN8_GMUCX_MRC_GBIF_QOS_CTRL, 0x33 },
+};
+
+static const struct adreno_gen8_core adreno_gpu_core_gen8_11_0 = {
+	.base = {
+		DEFINE_ADRENO_REV(ADRENO_REV_GEN8_11_0,
+				  UINT_MAX, UINT_MAX, UINT_MAX, ANY_ID),
+		.compatible = "qcom,adreno-gpu-gen8-11-0",
+		.features = ADRENO_APRIV | ADRENO_IOCOHERENT | ADRENO_CLX,
+		.gpudev = &adreno_gen8_hwsched_gpudev.base,
+		.perfcounters = &adreno_gen8_2_x_perfcounters,
+		.uche_gmem_alignment = SZ_64M,
+		.gmem_size = 18 * SZ_1M,
+		.bus_width = 32,
+		.snapshot_size = SZ_8M,
+		.num_ddr_channels = 4,
+		.highest_bank_bit = 16,
+	},
+	.aqefw_name = "gen81100_aqe.fw",
+	.sqefw_name = "gen81100_sqe.fw",
+	.gmufw_name = "gen81100_gmu.bin",
+	.zap_name = "gen81100_zap.mbn",
+	.ao_hwcg = gen8_2_0_ao_hwcg_regs,
+	.ao_hwcg_count = ARRAY_SIZE(gen8_2_0_ao_hwcg_regs),
+	.gbif = gen8_11_0_gbif_cx_regs,
+	.gbif_count = ARRAY_SIZE(gen8_11_0_gbif_cx_regs),
+	.hang_detect_cycles = 0xcfffff,
+	.protected_regs = gen8_11_0_protected_regs,
+	.nonctxt_regs = gen8_11_0_nonctxt_regs,
+	.gmu_hub_clk_freq = 150000000,
+	.gen8_snapshot_block_list = &gen8_11_0_snapshot_block_list,
+	.fast_bus_hint = true,
+	.bcl_data = 1,
+	.acv_perfmode_ddr_freq = MHZ_TO_KBPS(2736, 4),
+	.noc_timeout_us = 3410, /* 3.41 msec */
+	.cl_no_ft_timeout_ms = 6500,
+	.ctxt_record_size = (19708 * SZ_1K),
+	.limits_mit_cfg = &gen8_11_0_limits_mit_cfg,
+	.preempt_level = 1,
+	.gmu_mx_gdsc = true,
+	.three_rail_memory = true,
+	.malu = true,
+	.clx_tbl = &gen8_11_0_clx_table,
+};
+
+/* GEN8_11_1 noncontext register list */
+static const struct gen8_nonctxt_regs gen8_11_1_nonctxt_regs[] = {
+	{ GEN8_CP_SMMU_STREAM_ID_LPAC, 0x00000101, BIT(PIPE_NONE) },
+	{ GEN8_CP_MULTIDRAW_CNTL, 0x00000001, BIT(PIPE_NONE) },
+	/* Keep the raster direction as topleft */
+	{ GEN8_GRAS_DBG_ECO_CNTL, 0x01000800, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_GRAS_TSEFE_DBG_ECO_CNTL, 0x00200000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	/* GEN8_GRAS_NC_MODE_CNTL explicitly set elsewhere */
+	{ GEN8_PC_AUTO_VERTEX_STRIDE, 0x00000001, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_PC_VIS_STREAM_CNTL, 0x10010000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0x00000002, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	/* BIT(11): Disable skipIdx to avoid PDMA hang with restart-index draws */
+	{ GEN8_PC_CHICKEN_BITS_1, 0x00000803, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_PC_CHICKEN_BITS_2, 0x00000200, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_PC_CHICKEN_BITS_3, 0x00400000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_PC_CHICKEN_BITS_4, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	/*
+	 * BIT(28): Disable GS Quad primitive
+	 * BIT(30): Disable skipIdx to avoid PDMA hang with restart-index draws
+	 */
+	{ GEN8_PC_CHICKEN_BITS_5, BIT(28) | BIT(30), BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_RB_CCU_CNTL, 0x00000068, BIT(PIPE_BR) },
+	/*
+	 * BIT(10): Disable sysmem nonfclear feature
+	 * BIT(9): Disable DINT to c/z be data forwarding
+	 */
+	{ GEN8_RB_CCU_DBG_ECO_CNTL, BIT(10) | BIT(9), BIT(PIPE_BR) },
+	/* GEN8_RB_CCU_NC_MODE_CNTL explicitly set elsewhere */
+	/* GEN8_RB_CMP_NC_MODE_CNTL explicitly set elsewhere */
+	/* Disable early EOBlk return */
+	{ GEN8_RB_DBG_ECO_CNTL, BIT(17), BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_RB_GC_GMEM_PROTECT, 0x12000000, BIT(PIPE_BR) },
+	/*
+	 * BIT(5): Disable dead draw merge scheme on RB-HLSQ
+	 * BIT(6): Disable pre-mvcc dead draw merge scheme on LRZ-RB
+	 */
+	{ GEN8_RB_RBP_CNTL, BIT(5) | BIT(6), BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_RB_RESOLVE_PREFETCH_CNTL, 0x00000007, BIT(PIPE_BR) },
+	{ GEN8_RB_CMP_DBG_ECO_CNTL, 0x00004000, BIT(PIPE_BR) },
+	{ GEN8_RBBM_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
+	{ GEN8_RBBM_SLICE_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
+	/* Enable RB BAC strobes */
+	{ GEN8_RBBM_SLICE_PERFCTR_CNTL, BIT(0), BIT(PIPE_NONE) },
+	{ GEN8_RBBM_POWER_UP_RESET_SW_OVERRIDE, 0x70809060, BIT(PIPE_NONE) },
+	{ GEN8_RBBM_POWER_UP_RESET_SW_BV_OVERRIDE, 0x30000000, BIT(PIPE_NONE) },
+	{ GEN8_RBBM_WAIT_IDLE_CLOCKS_CNTL, 0x00000030, BIT(PIPE_NONE) },
+	{ GEN8_RBBM_WAIT_IDLE_CLOCKS_CNTL2, 0x00000030, BIT(PIPE_NONE) },
+	/* GEN8_RBBM_INTERFACE_HANG_INT_CNTL explicitly set elsewhere */
+	{ GEN8_RBBM_GBIF_CLIENT_QOS_CNTL, 0x22122212, BIT(PIPE_NONE) },
+	{ GEN8_RBBM_CGC_P2S_CNTL, 0x00000040, BIT(PIPE_NONE) },
+	/* Disable VS delay resource optimization */
+	{ GEN8_SP_CHICKEN_BITS, BIT(24), BIT(PIPE_NONE) },
+	{ GEN8_SP_CHICKEN_BITS_2, 0x00820800, BIT(PIPE_NONE) },
+	{ GEN8_SP_CHICKEN_BITS_3, 0x00300000, BIT(PIPE_NONE) },
+	/* Disable last-use skip for gpr ALU Write Enable */
+	{ GEN8_SP_CHICKEN_BITS_5, BIT(3), BIT(PIPE_NONE) },
+	/* GEN8_SP_NC_MODE_CNTL explicitly set elsewhere */
+	{ GEN8_SP_PERFCTR_SHADER_MASK, 0x0000003f, BIT(PIPE_NONE) },
+	{ GEN8_SP_HLSQ_DBG_ECO_CNTL, 0x04000000, BIT(PIPE_NONE) },
+	/* HLSQ ignores the shared constant feedback from SP:MAS */
+	{ GEN8_SP_HLSQ_DBG_ECO_CNTL_1, BIT(17), BIT(PIPE_NONE) },
+	/* Disable HLSQ large instruction async mode check */
+	{ GEN8_SP_HLSQ_DBG_ECO_CNTL_3, BIT(1), BIT(PIPE_NONE) },
+	{ GEN8_SP_HLSQ_TIMEOUT_THRESHOLD_DP, 0x00000080, BIT(PIPE_NONE) },
+	{ GEN8_SP_READ_SEL, 0x0001ff00, BIT(PIPE_NONE) },
+	{ GEN8_SP_L0_PERF_TUNE, 0x00000024, BIT(PIPE_NONE) },
+	/* BIT(20): Disable alpha only optimization in TP */
+	{ GEN8_TPL1_DBG_ECO_CNTL, 0x10100000, BIT(PIPE_NONE) },
+	{ GEN8_TPL1_DBG_ECO_CNTL1, 0x00000720, BIT(PIPE_NONE) },
+	/* GEN8_TPL1_NC_MODE_CNTL explicitly set elsewhere */
+	{ GEN8_UCHE_MODE_CNTL, 0x80080000, BIT(PIPE_NONE) },
+	{ GEN8_UCHE_CCHE_MODE_CNTL, 0x00001000, BIT(PIPE_NONE) },
+	/* Disable return data forwarding in UCHE */
+	{ GEN8_UCHE_DBG_ECO_CNTL_0, BIT(31), BIT(PIPE_NONE) },
+	/* BIT(22): Skip FullDirty flag during tag check in UCHE */
+	{ GEN8_UCHE_HW_DBG_CNTL, 0x01410000, BIT(PIPE_NONE) },
+	{ GEN8_UCHE_CCHE_CACHE_WAYS, 0x00000800, BIT(PIPE_NONE) },
+	{ GEN8_UCHE_GBIF_GX_CONFIG, 0x010240e0, BIT(PIPE_NONE) },
+	{ GEN8_UCHE_VARB_IDLE_TIMEOUT, 0x00000020, BIT(PIPE_NONE) },
+	{ GEN8_VFD_DBG_ECO_CNTL, 0x00008000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_VFD_CB_BV_THRESHOLD, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_VFD_CB_BR_THRESHOLD, 0x00600060, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_VFD_CB_BUSY_REQ_CNT, 0x00200020, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_VFD_CB_LP_REQ_CNT, 0x00080020, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_VPC_FLATSHADE_MODE_CNTL, 0x00000001, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_VSC_VISIBILITY_FLUSH_CNTL, 0x00080004, BIT(PIPE_NONE) },
+	{ 0 },
+};
+
+static const struct adreno_gen8_core adreno_gpu_core_gen8_11_1 = {
+	.base = {
+		DEFINE_ADRENO_REV(ADRENO_REV_GEN8_11_1,
+				  UINT_MAX, UINT_MAX, UINT_MAX, ANY_ID),
+		.compatible = "qcom,adreno-gpu-gen8-11-1",
+		.features = ADRENO_APRIV | ADRENO_IOCOHERENT | ADRENO_LPAC | ADRENO_PREEMPTION |
+			ADRENO_GMU_WARMBOOT | ADRENO_GMU_BASED_DCVS | ADRENO_CLX |
+			ADRENO_GMU_THERMAL_MITIGATION | ADRENO_AQE | ADRENO_CONTENT_PROTECTION |
+			ADRENO_BCL | ADRENO_DCVS_PROFILE | ADRENO_IFPC | ADRENO_GMU_MINBW |
+			ADRENO_DEFER_GMEM_ALLOC | ADRENO_GMU_FAST_CONTEXT_DESTROY |
+			ADRENO_ACD | ADRENO_GMU_AB | ADRENO_HW_FENCE,
+		.features_standard = ADRENO_APRIV | ADRENO_IOCOHERENT | ADRENO_PREEMPTION |
+			ADRENO_IFPC | ADRENO_AQE | ADRENO_CONTENT_PROTECTION | ADRENO_CLX |
+			ADRENO_GMU_FAST_CONTEXT_DESTROY | ADRENO_GMU_BASED_DCVS | ADRENO_ACD,
+		.gpudev = &adreno_gen8_hwsched_gpudev.base,
+		.perfcounters = &adreno_gen8_2_x_perfcounters,
+		.uche_gmem_alignment = SZ_64M,
+		.gmem_size = 18 * SZ_1M,
+		.bus_width = 32,
+		.snapshot_size = SZ_8M,
+		.num_ddr_channels = 4,
+		.highest_bank_bit = 16,
+		.chipid = 0x44051401,
+		.speedbins = KGSL_SPEEDBINS(
+			{ 0,   0 },
+			{ 284, 2 },
+			{ 216, 3 },
+		),
+		.ubwc_mode = 7,
+		.mal = 32,
+	},
+	.aqefw_name = "gen81100_aqe.fw",
+	.sqefw_name = "gen81100_sqe.fw",
+	.gmufw_name = "gen81100_gmu.bin",
+	.zap_name = "gen81100_zap.mbn",
+	.ao_hwcg = gen8_2_0_ao_hwcg_regs,
+	.ao_hwcg_count = ARRAY_SIZE(gen8_2_0_ao_hwcg_regs),
+	.gbif = gen8_11_0_gbif_cx_regs,
+	.gbif_count = ARRAY_SIZE(gen8_11_0_gbif_cx_regs),
+	.hang_detect_cycles = 0xcfffff,
+	.protected_regs = gen8_11_0_protected_regs,
+	.nonctxt_regs = gen8_11_1_nonctxt_regs,
+	.gmu_hub_clk_freq = 150000000,
+	.gen8_snapshot_block_list = &gen8_11_0_snapshot_block_list,
+	.fast_bus_hint = true,
+	.bcl_data = GEN8_2_X_BCL_DATA,
+	.acv_perfmode_ddr_freq = MHZ_TO_KBPS(4224, 4),
+	.noc_timeout_us = 3410, /* 3.41 msec */
+	.cl_no_ft_timeout_ms = 6500,
+	.ctxt_record_size = (19708 * SZ_1K),
+	.limits_mit_cfg = &gen8_11_0_limits_mit_cfg,
+	.preempt_level = 1,
+	.gmu_mx_gdsc = true,
+	.three_rail_memory = true,
+	.malu = true,
+	.clx_tbl = &gen8_11_0_clx_table,
+};
+
+static const struct gen8_nonctxt_regs gen8_14_0_nonctxt_regs[] = {
+	{ GEN8_CP_SMMU_STREAM_ID_LPAC, 0x00000101, BIT(PIPE_NONE) },
+	{ GEN8_CP_MULTIDRAW_CNTL, 0x00000001, BIT(PIPE_NONE) },
+	/* Keep the raster direction as topleft */
+	{ GEN8_GRAS_DBG_ECO_CNTL, 0x01000800, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_GRAS_TSEFE_DBG_ECO_CNTL, 0x00200000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	/* GEN8_GRAS_NC_MODE_CNTL explicitly set elsewhere */
+	{ GEN8_PC_AUTO_VERTEX_STRIDE, 0x00000001, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_PC_VIS_STREAM_CNTL, 0x10010000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0x00000002, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	/* BIT(11): Disable skipIdx to avoid PDMA hang with restart-index draws */
+	{ GEN8_PC_CHICKEN_BITS_1, 0x00000803, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_PC_CHICKEN_BITS_2, 0x00000200, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_PC_CHICKEN_BITS_3, 0x00400000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_PC_CHICKEN_BITS_4, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	/*
+	 * BIT(28): Disable GS Quad primitive
+	 * BIT(30): Disable skipIdx to avoid PDMA hang with restart-index draws
+	 */
+	{ GEN8_PC_CHICKEN_BITS_5, BIT(28) | BIT(30), BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_RB_CCU_CNTL, 0x00000068, BIT(PIPE_BR) },
+	/*
+	 * BIT(10): Disable sysmem nonfclear feature
+	 * BIT(9): Disable DINT to c/z be data forwarding
+	 */
+	{ GEN8_RB_CCU_DBG_ECO_CNTL, BIT(10) | BIT(9), BIT(PIPE_BR) },
+	/* GEN8_RB_CCU_NC_MODE_CNTL explicitly set elsewhere */
+	/* GEN8_RB_CMP_NC_MODE_CNTL explicitly set elsewhere */
+	/* Disable early EOBlk return */
+	{ GEN8_RB_DBG_ECO_CNTL, BIT(17), BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_RB_GC_GMEM_PROTECT, 0xC000000, BIT(PIPE_BR) },
+	/*
+	 * BIT(5): Disable dead draw merge scheme on RB-HLSQ
+	 * BIT(6): Disable pre-mvcc dead draw merge scheme on LRZ-RB
+	 */
+	{ GEN8_RB_RBP_CNTL, BIT(5) | BIT(6), BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_RB_RESOLVE_PREFETCH_CNTL, 0x00000007, BIT(PIPE_BR) },
+	{ GEN8_RB_CMP_DBG_ECO_CNTL, 0x00004000, BIT(PIPE_BR) },
+	{ GEN8_RBBM_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
+	{ GEN8_RBBM_SLICE_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
+	{ GEN8_RBBM_POWER_UP_RESET_SW_OVERRIDE, 0x70809060, BIT(PIPE_NONE) },
+	{ GEN8_RBBM_POWER_UP_RESET_SW_BV_OVERRIDE, 0x30000000, BIT(PIPE_NONE) },
+	{ GEN8_RBBM_WAIT_IDLE_CLOCKS_CNTL, 0x00000030, BIT(PIPE_NONE) },
+	{ GEN8_RBBM_WAIT_IDLE_CLOCKS_CNTL2, 0x00000030, BIT(PIPE_NONE) },
+	/* GEN8_RBBM_INTERFACE_HANG_INT_CNTL explicitly set elsewhere */
+	{ GEN8_RBBM_GBIF_CLIENT_QOS_CNTL, 0x22122212, BIT(PIPE_NONE) },
+	{ GEN8_RBBM_CGC_P2S_CNTL, 0x00000040, BIT(PIPE_NONE) },
+	/* Disable VS delay resource optimization */
+	{ GEN8_SP_CHICKEN_BITS, BIT(24), BIT(PIPE_NONE) },
+	{ GEN8_SP_CHICKEN_BITS_2, 0x00820800, BIT(PIPE_NONE) },
+	{ GEN8_SP_CHICKEN_BITS_3, 0x00300000, BIT(PIPE_NONE) },
+	/* Disable last-use skip for gpr ALU Write Enable */
+	{ GEN8_SP_CHICKEN_BITS_5, BIT(3), BIT(PIPE_NONE) },
+	/* GEN8_SP_NC_MODE_CNTL explicitly set elsewhere */
+	{ GEN8_SP_PERFCTR_SHADER_MASK, 0x0000003f, BIT(PIPE_NONE) },
+	{ GEN8_SP_HLSQ_DBG_ECO_CNTL, 0x04000000, BIT(PIPE_NONE) },
+	/* HLSQ ignores the shared constant feedback from SP:MAS */
+	{ GEN8_SP_HLSQ_DBG_ECO_CNTL_1, BIT(17), BIT(PIPE_NONE) },
+	/* Disable HLSQ large instruction async mode check */
+	{ GEN8_SP_HLSQ_DBG_ECO_CNTL_3, BIT(1), BIT(PIPE_NONE) },
+	{ GEN8_SP_HLSQ_TIMEOUT_THRESHOLD_DP, 0x00000080, BIT(PIPE_NONE) },
+	{ GEN8_SP_READ_SEL, 0x0001ff00, BIT(PIPE_NONE) },
+	{ GEN8_SP_L0_PERF_TUNE, 0x00000024, BIT(PIPE_NONE) },
+	/* BIT(20): Disable alpha only optimization in TP */
+	{ GEN8_TPL1_DBG_ECO_CNTL, 0x10100000, BIT(PIPE_NONE) },
+	{ GEN8_TPL1_DBG_ECO_CNTL1, 0x00000720, BIT(PIPE_NONE) },
+	/* GEN8_TPL1_NC_MODE_CNTL explicitly set elsewhere */
+	{ GEN8_UCHE_MODE_CNTL, 0x80080000, BIT(PIPE_NONE) },
+	{ GEN8_UCHE_CCHE_MODE_CNTL, 0x00001000, BIT(PIPE_NONE) },
+	/* Disable return data forwarding in UCHE */
+	{ GEN8_UCHE_DBG_ECO_CNTL_0, BIT(31), BIT(PIPE_NONE) },
+	/* BIT(22): Skip FullDirty flag during tag check in UCHE */
+	{ GEN8_UCHE_HW_DBG_CNTL, 0x01410000, BIT(PIPE_NONE) },
+	{ GEN8_UCHE_CCHE_CACHE_WAYS, 0x00000800, BIT(PIPE_NONE) },
+	{ GEN8_UCHE_GBIF_GX_CONFIG, 0x010240e0, BIT(PIPE_NONE) },
+	{ GEN8_UCHE_VARB_IDLE_TIMEOUT, 0x00000020, BIT(PIPE_NONE) },
+	{ GEN8_VFD_DBG_ECO_CNTL, 0x00008000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_VFD_CB_BV_THRESHOLD, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_VFD_CB_BR_THRESHOLD, 0x00600060, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_VFD_CB_BUSY_REQ_CNT, 0x00200020, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_VFD_CB_LP_REQ_CNT, 0x00080020, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_VPC_FLATSHADE_MODE_CNTL, 0x00000001, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_VSC_VISIBILITY_FLUSH_CNTL, 0x00080004, BIT(PIPE_NONE) },
+	{ 0 },
+};
+
+static const struct adreno_gen8_core adreno_gpu_core_gen8_14_0 = {
+	.base = {
+		DEFINE_ADRENO_REV(ADRENO_REV_GEN8_14_0,
+				UINT_MAX, UINT_MAX, UINT_MAX, ANY_ID),
+		.compatible = "qcom,adreno-gpu-gen8-14-0",
+		.features = ADRENO_APRIV | ADRENO_IOCOHERENT | ADRENO_LPAC | ADRENO_PREEMPTION |
+			ADRENO_GMU_WARMBOOT | ADRENO_GMU_BASED_DCVS |
+			ADRENO_GMU_THERMAL_MITIGATION | ADRENO_AQE | ADRENO_CONTENT_PROTECTION |
+			ADRENO_DCVS_PROFILE | ADRENO_IFPC | ADRENO_GMU_MINBW |
+			ADRENO_DEFER_GMEM_ALLOC | ADRENO_GMU_FAST_CONTEXT_DESTROY |
+			ADRENO_GMU_AB | ADRENO_HW_FENCE | ADRENO_CLX | ADRENO_ACD,
+		.features_standard = ADRENO_APRIV | ADRENO_IOCOHERENT | ADRENO_PREEMPTION |
+			ADRENO_IFPC | ADRENO_AQE | ADRENO_CONTENT_PROTECTION | ADRENO_CLX |
+			ADRENO_GMU_FAST_CONTEXT_DESTROY | ADRENO_GMU_BASED_DCVS,
+		.gpudev = &adreno_gen8_hwsched_gpudev.base,
+		.perfcounters = &adreno_gen8_2_x_perfcounters,
+		.uche_gmem_alignment = SZ_64M,
+		.gmem_size = 12 * SZ_1M,
+		.bus_width = 32,
+		.snapshot_size = SZ_8M,
+		.num_ddr_channels = 4,
+		.highest_bank_bit = 16,
+		.chipid = 0x44041400,
+		.speedbins = KGSL_SPEEDBINS(
+			{ 0, 0 },
+			{ 216, 0 },
+			{ 284, 1 },
+		),
+		.ubwc_mode = 7,
+		.mal = 32,
+	},
+	.aqefw_name = "gen81100_aqe.fw",
+	.sqefw_name = "gen81100_sqe.fw",
+	.gmufw_name = "gen81400_gmu.bin",
+	.zap_name = "gen81100_zap.mbn",
+	.ao_hwcg = gen8_2_0_ao_hwcg_regs,
+	.ao_hwcg_count = ARRAY_SIZE(gen8_2_0_ao_hwcg_regs),
+	.gbif = gen8_11_0_gbif_cx_regs,
+	.gbif_count = ARRAY_SIZE(gen8_11_0_gbif_cx_regs),
+	.hang_detect_cycles = 0xcfffff,
+	.protected_regs = gen8_11_0_protected_regs,
+	.nonctxt_regs = gen8_14_0_nonctxt_regs,
+	.gmu_hub_clk_freq = 150000000,
+	.gen8_snapshot_block_list = &gen8_11_0_snapshot_block_list,
+	.fast_bus_hint = true,
+	.acv_perfmode_ddr_freq = MHZ_TO_KBPS(4224, 4),
+	.noc_timeout_us = 3410, /* 3.41 msec */
+	.cl_no_ft_timeout_ms = 6500,
+	.ctxt_record_size = (13564 * SZ_1K),
+	.limits_mit_cfg = &gen8_11_0_limits_mit_cfg,
+	.preempt_level = 1,
+	.gmu_mx_gdsc = true,
+	.three_rail_memory = true,
+	.malu = false,
+	.clx_tbl = &gen8_14_0_clx_table,
+};
+
 static const struct adreno_gpu_core *adreno_gpulist[] = {
 	&adreno_gpu_core_a306,		/* Deprecated */
 	&adreno_gpu_core_a306a,		/* Deprecated */
@@ -4456,4 +5111,8 @@ static const struct adreno_gpu_core *adreno_gpulist[] = {
 	&adreno_gpu_core_gen8_6_0.base,
 	&adreno_gpu_core_gen8_8_0.base,
 	&adreno_gpu_core_gen8_9_0.base,
+	&adreno_gpu_core_gen8_10_0.base,
+	&adreno_gpu_core_gen8_11_0.base,
+	&adreno_gpu_core_gen8_11_1.base,
+	&adreno_gpu_core_gen8_14_0.base,
 };

@@ -48,6 +48,7 @@ struct kgsl_snapshot_section_header {
 #define KGSL_SNAPSHOT_SECTION_INDEXED_REGS_V2 0x0502
 #define KGSL_SNAPSHOT_SECTION_DEBUG        0x0901
 #define KGSL_SNAPSHOT_SECTION_DEBUGBUS     0x0A01
+#define KGSL_SNAPSHOT_SECTION_DEBUGBUS_ENCRYPTED 0x0A02
 #define KGSL_SNAPSHOT_SECTION_GPU_OBJECT_V2 0x0B02
 #define KGSL_SNAPSHOT_SECTION_MEMLIST_V2   0x0E02
 #define KGSL_SNAPSHOT_SECTION_SHADER       0x1201
@@ -217,8 +218,14 @@ struct kgsl_snapshot_mvc_regs_v3 {
 #define SNAPSHOT_DEBUG_GMU_HFI_VERSION 19
 #define SNAPSHOT_DEBUG_AQE_VERSION 20
 
+/* RBBM status info */
+#define SNAPSHOT_DEBUG_RBBM_STATUS 32
+
 /* Slice mask info */
-#define SNAPSHOT_DEBUG_SLICE_MASK 32
+#define SNAPSHOT_DEBUG_SLICE_MASK 8192
+
+/* Malu GDSC on/off */
+#define SNAPSHOT_DEBUG_MALU_STATUS 8194
 
 struct kgsl_snapshot_debug {
 	int type;    /* Type identifier for the attached tata */

@@ -225,21 +225,29 @@ int adreno_request_firmware(const struct firmware **fw, const char *name,
 	struct adreno_fw_work work = {
 		.fw = fw, .name = name, .device = device,
 	};
+	int ret;
 
-	INIT_WORK(&work.work, adreno_fw_load_worker);
-	if (!adreno_fw_dispatch(&work))
-		return 0;
+	INIT_WORK_ONSTACK(&work.work, adreno_fw_load_worker);
+	ret = adreno_fw_dispatch(&work);
+	if (!ret)
+		goto out;
 
 	work.name = kasprintf(GFP_KERNEL, "qcom/%s", name);
-	if (!work.name)
-		return -ENOMEM;
+	if (!work.name) {
+		ret = -ENOMEM;
+		goto out;
+	}
 
-	if (adreno_fw_dispatch(&work) && log_error)
+	ret = adreno_fw_dispatch(&work);
+	if (ret && log_error)
 		dev_err(device, "Firmware request for %s failed with error %d\n",
-				name, work.ret);
+				name, ret);
 	kfree(work.name);
 
-	return work.ret;
+out:
+	destroy_work_on_stack(&work.work);
+
+	return ret;
 }
 
 int adreno_get_firmware(struct adreno_device *adreno_dev,
@@ -1763,6 +1771,8 @@ const char *hfi_feature_to_string(u32 feature)
 		return "DMS";
 	case HFI_FEATURE_AQE:
 		return "AQE";
+	case HFI_FEATURE_FAST_CONTEXT_DESTROY:
+		return "FAST_CONTEXT_DESTROY";
 	}
 	return "unknown";
 }
@@ -3221,6 +3231,14 @@ static int adreno_prop_u32(struct kgsl_device *device,
 		val = adreno_dev->fastblend_enabled ? 1 : 0;
 	else if (param->type == KGSL_PROP_IS_AQE_ENABLED)
 		val = ADRENO_FEATURE(adreno_dev, ADRENO_AQE) ? 1 : 0;
+	else if (param->type == KGSL_PROP_MULTIDRAW_MODE)
+		val = adreno_dev->multidraw_mode;
+	else if (param->type == KGSL_PROP_VIZ_FLUSH_DRAW_COUNT)
+		val = adreno_dev->viz_flush_draw_count;
+	else if (param->type == KGSL_PROP_VIZ_FLUSH_PRIM_COUNT)
+		val = adreno_dev->viz_flush_prim_count;
+	else if (param->type == KGSL_PROP_IS_MALU_ENABLED)
+		val = adreno_dev->malu_enabled ? 1 : 0;
 
 	return copy_prop(param, &val, sizeof(val));
 }
@@ -3266,6 +3284,9 @@ static const struct {
 	{ KGSL_PROP_IS_FASTBLEND_ENABLED, adreno_prop_u32},
 	{ KGSL_PROP_UCHE_TRAP_BASE, adreno_prop_uche_trap_base },
 	{ KGSL_PROP_IS_AQE_ENABLED, adreno_prop_u32 },
+	{ KGSL_PROP_MULTIDRAW_MODE, adreno_prop_u32 },
+	{ KGSL_PROP_VIZ_FLUSH_DRAW_COUNT, adreno_prop_u32 },
+	{ KGSL_PROP_VIZ_FLUSH_PRIM_COUNT, adreno_prop_u32 },
 };
 
 static int adreno_getproperty(struct kgsl_device *device,
@@ -4160,6 +4181,7 @@ int adreno_verify_cmdobj(struct kgsl_device_private *dev_priv,
 		uint32_t count)
 {
 	struct kgsl_device *device = dev_priv->device;
+	struct adreno_device *adreno_dev = ADRENO_DEVICE(device);
 	struct kgsl_memobj_node *ib;
 	unsigned int i;
 
@@ -4167,6 +4189,13 @@ int adreno_verify_cmdobj(struct kgsl_device_private *dev_priv,
 		/* Verify the IBs before they get queued */
 		if (drawobj[i]->type == CMDOBJ_TYPE) {
 			struct kgsl_drawobj_cmd *cmdobj = CMDOBJ(drawobj[i]);
+
+			/* Only allow mALU submissions if hardware supports mALU */
+			if ((drawobj[i]->flags & KGSL_DRAWOBJ_USES_MALU) &&
+				!adreno_dev->malu_enabled) {
+				dev_err_once(device->dev, "mALU workload isn't supported\n");
+				return -EINVAL;
+			}
 
 			list_for_each_entry(ib, &cmdobj->cmdlist, node)
 				if (!_verify_ib(dev_priv,

@@ -227,6 +227,28 @@ static void gen8_hwsched_set_ctxt_record_vrb(struct adreno_device *adreno_dev)
 		adreno_dev->aqe_ctxt_record_sz >> 10);
 }
 
+static void _enable_malu_submissions(struct adreno_device *adreno_dev)
+{
+	struct kgsl_device *device = KGSL_DEVICE(adreno_dev);
+
+	if (!adreno_dev->malu_enabled)
+		return;
+
+	/* Make sure GMU FW also supports mALU */
+	if (gen8_hwsched_hfi_get_value(adreno_dev, HFI_VALUE_MALU, 0) != 1) {
+		dev_err_once(GMU_PDEV_DEV(device), "FW doesn't support mALU\n");
+		adreno_dev->malu_enabled = false;
+		return;
+	}
+
+	if (!gmu_core_capabilities_enabled(&KGSL_DEVICE(adreno_dev)->gmu_core.platform_caps,
+		FAC_POWER_CONTROL_WA)) {
+		dev_err_once(GMU_PDEV_DEV(device), "FW doesn't have mALU WA\n");
+		adreno_dev->malu_enabled = false;
+		return;
+	}
+}
+
 static int gen8_hwsched_gmu_first_boot(struct adreno_device *adreno_dev)
 {
 	struct kgsl_device *device = KGSL_DEVICE(adreno_dev);
@@ -242,6 +264,10 @@ static int gen8_hwsched_gmu_first_boot(struct adreno_device *adreno_dev)
 	ret = kgsl_pwrctrl_enable_cx_gdsc(device);
 	if (ret)
 		return ret;
+
+	ret = kgsl_pwrctrl_enable_mx_gdsc(device);
+	if (ret)
+		goto cx_gdsc_off;
 
 	/* Start the GMU at the lowest available frequency level */
 	ret = gmu_core_enable_clks(device, 0);
@@ -328,6 +354,8 @@ static int gen8_hwsched_gmu_first_boot(struct adreno_device *adreno_dev)
 		adreno_dev->gmu_ab = false;
 	}
 
+	_enable_malu_submissions(adreno_dev);
+
 	icc_set_bw(pwr->icc_path, 0, 0);
 
 	device->gmu_fault = false;
@@ -357,6 +385,8 @@ clks_gdsc_off:
 	gmu_core_disable_clks(device);
 
 gdsc_off:
+	kgsl_pwrctrl_disable_mx_gdsc(device);
+cx_gdsc_off:
 	kgsl_pwrctrl_disable_cx_gdsc(device);
 
 	gmu_core_rdpm_cx_freq_update(device, 0);
@@ -386,6 +416,10 @@ static int gen8_hwsched_gmu_boot(struct adreno_device *adreno_dev)
 	ret = kgsl_pwrctrl_enable_cx_gdsc(device);
 	if (ret)
 		return ret;
+
+	ret = kgsl_pwrctrl_enable_mx_gdsc(device);
+	if (ret)
+		goto cx_gdsc_off;
 
 	/* Start the GMU at the lowest available frequency level */
 	ret = gmu_core_enable_clks(device, 0);
@@ -449,6 +483,8 @@ clks_gdsc_off:
 	gmu_core_disable_clks(device);
 
 gdsc_off:
+	kgsl_pwrctrl_disable_mx_gdsc(device);
+cx_gdsc_off:
 	kgsl_pwrctrl_disable_cx_gdsc(device);
 
 	gmu_core_rdpm_cx_freq_update(device, 0);
@@ -544,6 +580,8 @@ static int gen8_hwsched_gmu_power_off(struct adreno_device *adreno_dev)
 	gen8_hwsched_hfi_stop(adreno_dev);
 
 	gmu_core_disable_clks(device);
+
+	kgsl_pwrctrl_disable_mx_gdsc(device);
 
 	kgsl_pwrctrl_disable_cx_gdsc(device);
 
