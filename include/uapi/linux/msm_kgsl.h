@@ -105,6 +105,7 @@
 /* RECURRING bits must be set for LSR workload with IOCTL_KGSL_RECURRING_COMMAND. */
 #define KGSL_CMDBATCH_START_RECURRING	0x00100000
 #define KGSL_CMDBATCH_STOP_RECURRING	0x00200000
+#define KGSL_CMDBATCH_USES_MALU		0x00400000
 
 /*
  * Reserve bits [16:19] and bits [28:31] for possible bits shared between
@@ -362,6 +363,10 @@ enum kgsl_timestamp_type {
 #define KGSL_PROP_GPU_SECURE_VA_SIZE	0x31
 #define KGSL_PROP_GPU_SECURE_VA_INUSE	0x32
 #define KGSL_PROP_DCVS_PROFILE		0x33
+#define KGSL_PROP_MULTIDRAW_MODE	0x34
+#define KGSL_PROP_VIZ_FLUSH_DRAW_COUNT	0x35
+#define KGSL_PROP_VIZ_FLUSH_PRIM_COUNT	0x36
+#define KGSL_PROP_IS_MALU_ENABLED	0x38
 
 /*
  * kgsl_capabilities_properties returns a list of supported properties.

@@ -7,10 +7,12 @@
 #include "adreno.h"
 #include "adreno_gen8_0_0_snapshot.h"
 #include "adreno_gen8_1_0_snapshot.h"
+#include "adreno_gen8_10_0_snapshot.h"
 #include "adreno_gen8_2_0_snapshot.h"
 #include "adreno_gen8_3_0_snapshot.h"
 #include "adreno_gen8_6_0_snapshot.h"
 #include "adreno_gen8_9_0_snapshot.h"
+#include "adreno_gen8_11_0_snapshot.h"
 #include "adreno_snapshot.h"
 
 static struct kgsl_memdesc *gen8_capturescript;
@@ -59,6 +61,37 @@ const struct gen8_snapshot_block_list gen8_1_0_snapshot_block_list = {
 	.debugbus_blocks = gen8_1_0_debugbus_blocks,
 	.debugbus_blocks_len = ARRAY_SIZE(gen8_1_0_debugbus_blocks),
 	/* GBIF_GX is included in gen8_1_0_debugbus_blocks per data file */
+	.gbif_debugbus_blocks = gen8_1_0_gbif_debugbus_blocks,
+	.gbif_debugbus_blocks_len = ARRAY_SIZE(gen8_1_0_gbif_debugbus_blocks),
+	.cx_debugbus_blocks = gen8_cx_debugbus_blocks,
+	.cx_debugbus_blocks_len = ARRAY_SIZE(gen8_cx_debugbus_blocks),
+	.external_core_regs = gen8_1_0_external_core_regs,
+	.num_external_core_regs = ARRAY_SIZE(gen8_1_0_external_core_regs),
+	.gmu_cx_unsliced_regs = gen8_1_0_gmucx_registers,
+	.gmu_gx_regs = gen8_1_0_gmu_gx_registers,
+	.num_gmu_gx_regs = ARRAY_SIZE(gen8_1_0_gmu_gx_registers),
+	.rscc_regs = gen8_2_0_rscc_rsc_registers,
+	.reg_list = gen8_1_0_misc_registers,
+	.cx_misc_regs = gen8_1_0_cx_misc_registers,
+	.shader_blocks = gen8_1_0_shader_blocks,
+	.num_shader_blocks = ARRAY_SIZE(gen8_1_0_shader_blocks),
+	.cp_clusters = gen8_1_0_cp_clusters,
+	.num_cp_clusters = ARRAY_SIZE(gen8_1_0_cp_clusters),
+	.clusters = gen8_1_0_mvc_clusters,
+	.num_clusters = ARRAY_SIZE(gen8_1_0_mvc_clusters),
+	.sptp_clusters = gen8_1_0_sptp_clusters,
+	.num_sptp_clusters = ARRAY_SIZE(gen8_1_0_sptp_clusters),
+	.index_registers = gen8_1_0_cp_indexed_reg_list,
+	.index_registers_len = ARRAY_SIZE(gen8_1_0_cp_indexed_reg_list),
+	.mempool_index_registers = gen8_2_0_cp_mempool_reg_list,
+	.mempool_index_registers_len = ARRAY_SIZE(gen8_2_0_cp_mempool_reg_list),
+};
+
+const struct gen8_snapshot_block_list gen8_10_0_snapshot_block_list = {
+	.pre_crashdumper_regs = gen8_1_0_ahb_registers,
+	.num_pre_crashdumper_regs = ARRAY_SIZE(gen8_1_0_ahb_registers),
+	.debugbus_blocks = gen8_10_0_debugbus_blocks,
+	.debugbus_blocks_len = ARRAY_SIZE(gen8_10_0_debugbus_blocks),
 	.gbif_debugbus_blocks = gen8_1_0_gbif_debugbus_blocks,
 	.gbif_debugbus_blocks_len = ARRAY_SIZE(gen8_1_0_gbif_debugbus_blocks),
 	.cx_debugbus_blocks = gen8_cx_debugbus_blocks,
@@ -207,6 +240,43 @@ const struct gen8_snapshot_block_list gen8_9_0_snapshot_block_list = {
 	.index_registers_len = ARRAY_SIZE(gen8_2_0_cp_indexed_reg_list),
 	.mempool_index_registers = gen8_2_0_cp_mempool_reg_list,
 	.mempool_index_registers_len = ARRAY_SIZE(gen8_2_0_cp_mempool_reg_list),
+};
+
+const struct gen8_snapshot_block_list gen8_11_0_snapshot_block_list = {
+	.pre_crashdumper_regs = gen8_11_0_ahb_registers,
+	.num_pre_crashdumper_regs = ARRAY_SIZE(gen8_11_0_ahb_registers),
+	.debugbus_blocks = gen8_11_0_debugbus_blocks,
+	.debugbus_blocks_len = ARRAY_SIZE(gen8_11_0_debugbus_blocks),
+	.gbif_debugbus_blocks = gen8_gbif_debugbus_blocks,
+	.gbif_debugbus_blocks_len = ARRAY_SIZE(gen8_gbif_debugbus_blocks),
+	.cx_debugbus_blocks = gen8_cx_debugbus_blocks,
+	.cx_debugbus_blocks_len = ARRAY_SIZE(gen8_cx_debugbus_blocks),
+	.sized_gx_debugbus_blocks = gen8_11_0_gx_debugbus_blocks_sized,
+	.sized_gx_debugbus_blocks_len = ARRAY_SIZE(gen8_11_0_gx_debugbus_blocks_sized),
+	.sized_cx_debugbus_blocks = gen8_11_0_cx_debugbus_blocks_sized,
+	.sized_cx_debugbus_blocks_len = ARRAY_SIZE(gen8_11_0_cx_debugbus_blocks_sized),
+	.external_core_regs = gen8_11_0_external_core_regs,
+	.num_external_core_regs = ARRAY_SIZE(gen8_11_0_external_core_regs),
+	.gmu_cx_unsliced_regs = gen8_11_0_gmucx_registers,
+	.gmu_gx_regs = gen8_2_0_gmu_gx_registers,
+	.num_gmu_gx_regs = ARRAY_SIZE(gen8_2_0_gmu_gx_registers),
+	.rscc_regs = gen8_2_0_rscc_rsc_registers,
+	.reg_list = gen8_11_0_misc_registers,
+	.cx_misc_regs = gen8_11_0_cx_misc_registers,
+	.shader_blocks = gen8_11_0_shader_blocks,
+	.num_shader_blocks = ARRAY_SIZE(gen8_11_0_shader_blocks),
+	.cp_clusters = gen8_11_0_cp_clusters,
+	.num_cp_clusters = ARRAY_SIZE(gen8_11_0_cp_clusters),
+	.clusters = gen8_11_0_mvc_clusters,
+	.num_clusters = ARRAY_SIZE(gen8_11_0_mvc_clusters),
+	.sptp_clusters = gen8_11_0_sptp_clusters,
+	.num_sptp_clusters = ARRAY_SIZE(gen8_11_0_sptp_clusters),
+	.index_registers = gen8_11_0_cp_indexed_reg_list,
+	.index_registers_len = ARRAY_SIZE(gen8_11_0_cp_indexed_reg_list),
+	.mempool_index_registers = gen8_11_0_cp_mempool_reg_list,
+	.mempool_index_registers_len = ARRAY_SIZE(gen8_11_0_cp_mempool_reg_list),
+	.pc_index_registers = gen8_11_0_pc_indexed_reg_list,
+	.pc_index_registers_len = ARRAY_SIZE(gen8_11_0_pc_indexed_reg_list),
 };
 
 #define GEN8_SP_READ_SEL_VAL(_contextid, _sliceid, _location, _pipe, _statetype, _usptp, _sptp) \
@@ -849,6 +919,44 @@ err_unmap:
 err_clk_put:
 	clk_disable_unprepare(clk);
 	clk_put(clk);
+}
+
+static size_t gen8_snapshot_rbbm_status(struct kgsl_device *device, u8 *buf,
+		size_t remain, void *priv)
+{
+	struct kgsl_snapshot_debug *header = (struct kgsl_snapshot_debug *)buf;
+	u32 *data = (u32 *)(buf + sizeof(*header));
+
+	if (remain < DEBUG_SECTION_SZ(1)) {
+		SNAPSHOT_ERR_NOMEM(device, "RBBM STATUS");
+		return 0;
+	}
+
+	/* Dump the rbbm status information */
+	header->type = SNAPSHOT_DEBUG_RBBM_STATUS;
+	header->size = 1;
+	kgsl_regread(device, GEN8_RBBM_STATUS, data);
+
+	return DEBUG_SECTION_SZ(1);
+}
+
+static size_t gen8_snapshot_malu_status(struct kgsl_device *device, u8 *buf,
+		size_t remain, void *priv)
+{
+	struct kgsl_snapshot_debug *header = (struct kgsl_snapshot_debug *)buf;
+	u32 *data = (u32 *)(buf + sizeof(*header));
+
+	if (remain < DEBUG_SECTION_SZ(1)) {
+		SNAPSHOT_ERR_NOMEM(device, "MALU STATUS");
+		return 0;
+	}
+
+	/* Dump the malu status information */
+	header->type = SNAPSHOT_DEBUG_MALU_STATUS;
+	header->size = 1;
+	*data = gen8_gmu_malu_is_on(ADRENO_DEVICE(device));
+
+	return DEBUG_SECTION_SZ(1);
 }
 
 static size_t gen8_snapshot_slice_mask(struct kgsl_device *device, u8 *buf,
@@ -1955,6 +2063,29 @@ static bool gen8_snapshot_cp_indexed_regs(struct kgsl_device *device,
 	return ret;
 }
 
+static bool gen8_snapshot_pc_indexed_regs(struct kgsl_device *device,
+			struct kgsl_snapshot *snapshot)
+{
+	struct adreno_device *adreno_dev = ADRENO_DEVICE(device);
+	bool ret = true;
+	int i;
+
+	if (!adreno_is_gen8_11_x(adreno_dev))
+		return true;
+
+	for (i = 0; i < gen8_snapshot_block_list->pc_index_registers_len; i++) {
+		ret = gen8_snapshot_indexed_registers(device, snapshot,
+			gen8_snapshot_block_list->pc_index_registers[i].addr,
+			gen8_snapshot_block_list->pc_index_registers[i].data, 0,
+			gen8_snapshot_block_list->pc_index_registers[i].size,
+			gen8_snapshot_block_list->pc_index_registers[i].pipe_id, UINT_MAX);
+		if (!ret)
+			break;
+	}
+
+	return ret;
+}
+
 /*
  * gen8_snapshot() - GEN8 GPU snapshot function
  * @adreno_dev: Device being snapshotted
@@ -1988,6 +2119,12 @@ void gen8_snapshot(struct adreno_device *adreno_dev,
 
 	kgsl_snapshot_add_section(device, KGSL_SNAPSHOT_SECTION_DEBUG,
 		snapshot, gen8_snapshot_slice_mask, NULL);
+
+	kgsl_snapshot_add_section(device, KGSL_SNAPSHOT_SECTION_DEBUG,
+		snapshot, gen8_snapshot_rbbm_status, NULL);
+
+	kgsl_snapshot_add_section(device, KGSL_SNAPSHOT_SECTION_DEBUG,
+		snapshot, gen8_snapshot_malu_status, NULL);
 
 	gen8_snapshot_cx_debugbus(adreno_dev, snapshot);
 
@@ -2076,6 +2213,10 @@ void gen8_snapshot(struct adreno_device *adreno_dev,
 	if (!gen8_snapshot_mempool(device, snapshot))
 		goto err;
 
+	/* PC indexed regs data */
+	if (!gen8_snapshot_pc_indexed_regs(device, snapshot))
+		goto err;
+
 	/*
 	 * CP MVC register section
 	 * If crashdumper timed out while dumping any section below skip everything
@@ -2113,8 +2254,9 @@ void gen8_crashdump_init(struct adreno_device *adreno_dev)
 	struct kgsl_device *device = KGSL_DEVICE(adreno_dev);
 	int ret;
 	u64 capturescript_regs_pages =
-		(adreno_is_gen8_2_x(adreno_dev) ||
-		 adreno_is_gen8_1_0(adreno_dev) ? 400 : 200);
+		((adreno_is_gen8_2_x(adreno_dev) ||
+		 adreno_is_gen8_1_0(adreno_dev) ||
+		adreno_is_gen8_11_x(adreno_dev)) ? 400 : 200);
 
 	ret = adreno_allocate_global(device, &gen8_capturescript,
 		50 * PAGE_SIZE, 0, KGSL_MEMFLAGS_GPUREADONLY,
