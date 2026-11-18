@@ -278,6 +278,60 @@ static const u32 gen8_3_0_pwrup_reglist[] = {
 	GEN8_TPL1_BICUBIC_WEIGHTS_TABLE_19,
 };
 
+/* IFPC & Preemption static powerup restore list for gen8_11_0 */
+static const u32 gen8_11_0_pwrup_reglist[] = {
+	GEN8_RB_CMP_NC_MODE_CNTL,
+	GEN8_SP_HLSQ_GC_GMEM_RANGE_MIN_LO,
+	GEN8_SP_HLSQ_GC_GMEM_RANGE_MIN_HI,
+	GEN8_SP_HLSQ_TIMEOUT_THRESHOLD_DP,
+	GEN8_SP_READ_SEL,
+	GEN8_CP_MULTIDRAW_CNTL,
+	GEN8_TPL1_BICUBIC_WEIGHTS_TABLE_0,
+	GEN8_TPL1_BICUBIC_WEIGHTS_TABLE_1,
+	GEN8_TPL1_BICUBIC_WEIGHTS_TABLE_2,
+	GEN8_TPL1_BICUBIC_WEIGHTS_TABLE_3,
+	GEN8_TPL1_BICUBIC_WEIGHTS_TABLE_4,
+	GEN8_TPL1_BICUBIC_WEIGHTS_TABLE_5,
+	GEN8_TPL1_BICUBIC_WEIGHTS_TABLE_6,
+	GEN8_TPL1_BICUBIC_WEIGHTS_TABLE_7,
+	GEN8_TPL1_BICUBIC_WEIGHTS_TABLE_8,
+	GEN8_TPL1_BICUBIC_WEIGHTS_TABLE_9,
+	GEN8_TPL1_BICUBIC_WEIGHTS_TABLE_10,
+	GEN8_TPL1_BICUBIC_WEIGHTS_TABLE_11,
+	GEN8_TPL1_BICUBIC_WEIGHTS_TABLE_12,
+	GEN8_TPL1_BICUBIC_WEIGHTS_TABLE_13,
+	GEN8_TPL1_BICUBIC_WEIGHTS_TABLE_14,
+	GEN8_TPL1_BICUBIC_WEIGHTS_TABLE_15,
+	GEN8_TPL1_BICUBIC_WEIGHTS_TABLE_16,
+	GEN8_TPL1_BICUBIC_WEIGHTS_TABLE_17,
+	GEN8_TPL1_BICUBIC_WEIGHTS_TABLE_18,
+	GEN8_TPL1_BICUBIC_WEIGHTS_TABLE_19,
+	GEN8_TPL1_DBG_ECO_CNTL,
+	GEN8_TPL1_DBG_ECO_CNTL1,
+	GEN8_TPL1_NC_MODE_CNTL,
+	GEN8_UCHE_MODE_CNTL,
+	GEN8_UCHE_CCHE_MODE_CNTL,
+	GEN8_UCHE_HW_DBG_CNTL,
+	GEN8_UCHE_CCHE_CACHE_WAYS,
+	GEN8_UCHE_CCHE_GC_GMEM_RANGE_MIN_LO,
+	GEN8_UCHE_CCHE_GC_GMEM_RANGE_MIN_HI,
+	GEN8_UCHE_CCHE_LPAC_GMEM_RANGE_MIN_LO,
+	GEN8_UCHE_CCHE_LPAC_GMEM_RANGE_MIN_HI,
+	GEN8_UCHE_CCHE_TRAP_BASE_LO,
+	GEN8_UCHE_CCHE_TRAP_BASE_HI,
+	GEN8_UCHE_CCHE_WRITE_THRU_BASE_LO,
+	GEN8_UCHE_CCHE_WRITE_THRU_BASE_HI,
+	GEN8_UCHE_CLIENT_PF,
+	GEN8_UCHE_DBG_ECO_CNTL_0,
+	GEN8_UCHE_GBIF_GX_CONFIG,
+	GEN8_UCHE_TRAP_BASE_LO,
+	GEN8_UCHE_TRAP_BASE_HI,
+	GEN8_UCHE_VARB_IDLE_TIMEOUT,
+	GEN8_UCHE_WRITE_THRU_BASE_LO,
+	GEN8_UCHE_WRITE_THRU_BASE_HI,
+	GEN8_VSC_VISIBILITY_FLUSH_CNTL,
+};
+
 /* IFPC only static powerup restore list */
 static const u32 gen8_ifpc_pwrup_reglist[] = {
 	GEN8_RBBM_NC_MODE_CNTL,
@@ -620,6 +674,84 @@ static const struct gen8_pwrup_extlist gen8_1_0_pwrup_extlist[] = {
 	{ GEN8_RB_CONTEXT_SWITCH_GMEM_SAVE_RESTORE, BIT(PIPE_BR) },
 };
 
+/* IFPC only static powerup restore list for gen8_11_0 */
+static const u32 gen8_11_0_ifpc_pwrup_reglist[] = {
+	GEN8_CP_INTERRUPT_STATUS_MASK_GLOBAL,
+	GEN8_RBBM_NC_MODE_CNTL,
+	GEN8_RBBM_SLICE_INTERFACE_HANG_INT_CNTL,
+	GEN8_RBBM_SLICE_NC_MODE_CNTL,
+	GEN8_RBBM_SLICE_PERFCTR_CNTL,
+	GEN8_SP_CHICKEN_BITS,
+	GEN8_SP_CHICKEN_BITS_2,
+	GEN8_SP_CHICKEN_BITS_3,
+	GEN8_SP_CHICKEN_BITS_5,
+	GEN8_SP_HLSQ_DBG_ECO_CNTL,
+	GEN8_SP_HLSQ_DBG_ECO_CNTL_1,
+	GEN8_SP_HLSQ_DBG_ECO_CNTL_3,
+	GEN8_SP_HLSQ_LPAC_GMEM_RANGE_MIN_LO,
+	GEN8_SP_HLSQ_LPAC_GMEM_RANGE_MIN_HI,
+	GEN8_SP_NC_MODE_CNTL,
+	GEN8_SP_PERFCTR_SHADER_MASK,
+	GEN8_SP_L0_PERF_TUNE,
+	GEN8_CP_PROTECT_REG_GLOBAL + 0,
+	GEN8_CP_PROTECT_REG_GLOBAL + 1,
+	GEN8_CP_PROTECT_REG_GLOBAL + 2,
+	GEN8_CP_PROTECT_REG_GLOBAL + 3,
+	GEN8_CP_PROTECT_REG_GLOBAL + 4,
+	GEN8_CP_PROTECT_REG_GLOBAL + 5,
+	GEN8_CP_PROTECT_REG_GLOBAL + 6,
+	GEN8_CP_PROTECT_REG_GLOBAL + 7,
+	GEN8_CP_PROTECT_REG_GLOBAL + 8,
+	GEN8_CP_PROTECT_REG_GLOBAL + 9,
+	GEN8_CP_PROTECT_REG_GLOBAL + 10,
+	GEN8_CP_PROTECT_REG_GLOBAL + 11,
+	GEN8_CP_PROTECT_REG_GLOBAL + 12,
+	GEN8_CP_PROTECT_REG_GLOBAL + 13,
+	GEN8_CP_PROTECT_REG_GLOBAL + 14,
+	GEN8_CP_PROTECT_REG_GLOBAL + 15,
+	GEN8_CP_PROTECT_REG_GLOBAL + 16,
+	GEN8_CP_PROTECT_REG_GLOBAL + 17,
+	GEN8_CP_PROTECT_REG_GLOBAL + 18,
+	GEN8_CP_PROTECT_REG_GLOBAL + 19,
+	GEN8_CP_PROTECT_REG_GLOBAL + 20,
+	GEN8_CP_PROTECT_REG_GLOBAL + 21,
+	GEN8_CP_PROTECT_REG_GLOBAL + 22,
+	GEN8_CP_PROTECT_REG_GLOBAL + 23,
+	GEN8_CP_PROTECT_REG_GLOBAL + 24,
+	GEN8_CP_PROTECT_REG_GLOBAL + 25,
+	GEN8_CP_PROTECT_REG_GLOBAL + 26,
+	GEN8_CP_PROTECT_REG_GLOBAL + 27,
+	GEN8_CP_PROTECT_REG_GLOBAL + 28,
+	GEN8_CP_PROTECT_REG_GLOBAL + 29,
+	GEN8_CP_PROTECT_REG_GLOBAL + 30,
+	GEN8_CP_PROTECT_REG_GLOBAL + 31,
+	GEN8_CP_PROTECT_REG_GLOBAL + 32,
+	GEN8_CP_PROTECT_REG_GLOBAL + 33,
+	GEN8_CP_PROTECT_REG_GLOBAL + 34,
+	GEN8_CP_PROTECT_REG_GLOBAL + 35,
+	GEN8_CP_PROTECT_REG_GLOBAL + 36,
+	GEN8_CP_PROTECT_REG_GLOBAL + 37,
+	GEN8_CP_PROTECT_REG_GLOBAL + 38,
+	GEN8_CP_PROTECT_REG_GLOBAL + 39,
+	GEN8_CP_PROTECT_REG_GLOBAL + 40,
+	GEN8_CP_PROTECT_REG_GLOBAL + 41,
+	GEN8_CP_PROTECT_REG_GLOBAL + 42,
+	GEN8_CP_PROTECT_REG_GLOBAL + 43,
+	GEN8_CP_PROTECT_REG_GLOBAL + 44,
+	GEN8_CP_PROTECT_REG_GLOBAL + 45,
+	GEN8_CP_PROTECT_REG_GLOBAL + 46,
+	GEN8_CP_PROTECT_REG_GLOBAL + 47,
+	GEN8_CP_PROTECT_REG_GLOBAL + 48,
+	GEN8_CP_PROTECT_REG_GLOBAL + 49,
+	GEN8_CP_PROTECT_REG_GLOBAL + 50,
+	GEN8_CP_PROTECT_REG_GLOBAL + 51,
+	GEN8_CP_PROTECT_REG_GLOBAL + 52,
+	GEN8_CP_PROTECT_REG_GLOBAL + 53,
+	GEN8_CP_PROTECT_REG_GLOBAL + 54,
+	GEN8_CP_PROTECT_REG_GLOBAL + 55,
+	GEN8_CP_PROTECT_REG_GLOBAL + 63,
+};
+
 static const struct gen8_pwrup_extlist gen8_0_0_pwrup_extlist[] = {
 	{ GEN8_CP_HW_FAULT_STATUS_MASK_PIPE, BIT(PIPE_BR) | BIT(PIPE_BV) | BIT(PIPE_LPAC)
 		| BIT(PIPE_AQE0) | BIT(PIPE_AQE1) | BIT(PIPE_DDE_BR) | BIT(PIPE_DDE_BV) },
@@ -715,10 +847,49 @@ static const struct gen8_pwrup_extlist gen8_3_0_pwrup_extlist[] = {
 	{ GEN8_VFD_DBG_ECO_CNTL, BIT(PIPE_BR) | BIT(PIPE_BV)},
 };
 
+/* Static powerup external list for gen8_11_0 */
+static const struct gen8_pwrup_extlist gen8_11_0_pwrup_extlist[] = {
+	{ GEN8_CP_HW_FAULT_STATUS_MASK_PIPE, BIT(PIPE_BR) | BIT(PIPE_BV) | BIT(PIPE_LPAC)
+		| BIT(PIPE_AQE0) | BIT(PIPE_AQE1) | BIT(PIPE_DDE_BR) | BIT(PIPE_DDE_BV) },
+	{ GEN8_CP_INTERRUPT_STATUS_MASK_PIPE, BIT(PIPE_BR) | BIT(PIPE_BV) | BIT(PIPE_LPAC)
+		| BIT(PIPE_AQE0) | BIT(PIPE_AQE1) | BIT(PIPE_DDE_BR) | BIT(PIPE_DDE_BV) },
+	{ GEN8_CP_PROTECT_CNTL_PIPE, BIT(PIPE_BR) | BIT(PIPE_BV) | BIT(PIPE_LPAC)},
+	{ GEN8_CP_PROTECT_REG_PIPE + 15, BIT(PIPE_BR) | BIT(PIPE_BV) | BIT(PIPE_LPAC) },
+	{ GEN8_GRAS_DBG_ECO_CNTL, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_GRAS_TSEFE_DBG_ECO_CNTL, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_GRAS_NC_MODE_CNTL, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_PC_AUTO_VERTEX_STRIDE, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_PC_VIS_STREAM_CNTL, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_PC_CHICKEN_BITS_1, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_PC_CHICKEN_BITS_2, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_PC_CHICKEN_BITS_3, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_PC_CHICKEN_BITS_4, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_PC_CHICKEN_BITS_5, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_RB_CCU_CNTL, BIT(PIPE_BR) },
+	{ GEN8_RB_CCU_DBG_ECO_CNTL, BIT(PIPE_BR)},
+	{ GEN8_RB_CCU_NC_MODE_CNTL, BIT(PIPE_BR) },
+	{ GEN8_RB_CMP_NC_MODE_CNTL, BIT(PIPE_BR) },
+	{ GEN8_RB_CONTEXT_SWITCH_GMEM_SAVE_RESTORE, BIT(PIPE_BR) },
+	{ GEN8_RB_DBG_ECO_CNTL, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_RB_RBP_CNTL, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_RB_RESOLVE_PREFETCH_CNTL, BIT(PIPE_BR) },
+	{ GEN8_RB_CMP_DBG_ECO_CNTL, BIT(PIPE_BR) },
+	{ GEN8_RB_GC_GMEM_PROTECT, BIT(PIPE_BR) },
+	{ GEN8_RB_LPAC_GMEM_PROTECT, BIT(PIPE_BR) },
+	{ GEN8_VFD_DBG_ECO_CNTL, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_VFD_CB_BV_THRESHOLD, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_VFD_CB_BR_THRESHOLD, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_VFD_CB_BUSY_REQ_CNT, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_VFD_CB_LP_REQ_CNT, BIT(PIPE_BV) | BIT(PIPE_BR) },
+	{ GEN8_VPC_FLATSHADE_MODE_CNTL, BIT(PIPE_BV) | BIT(PIPE_BR) },
+};
+
 struct gen8_nonctxt_overrides gen8_nc_overrides[] = {
 	{ GEN8_CP_RESERVED_REG_0, BIT(PIPE_NONE), 0, 0, 1, },
 	{ GEN8_CP_CHICKEN_DBG_PIPE, BIT(PIPE_BV) | BIT(PIPE_BR) | BIT(PIPE_LPAC) | BIT(PIPE_AQE0) |
 		BIT(PIPE_AQE1) | BIT(PIPE_DDE_BR) | BIT(PIPE_DDE_BV), 0, 0, 0, },
+	{ GEN8_CP_MULTIDRAW_CNTL, BIT(PIPE_NONE), 0, 0, 0, },
 	{ GEN8_GPU_CX_MISC_SMMU_INTR_MASK0, BIT(PIPE_NONE), 0, 0, 0, },
 	{ GEN8_GPU_CX_MISC_SMMU_INTR_MASK1, BIT(PIPE_NONE), 0, 0, 0, },
 	{ GEN8_UCHE_MODE_CNTL, BIT(PIPE_NONE), 0, 0, 0, },
@@ -744,7 +915,7 @@ struct gen8_nonctxt_overrides gen8_nc_overrides[] = {
 	{ GEN8_PC_CHICKEN_BITS_2, BIT(PIPE_BV) | BIT(PIPE_BR), 0, 0, 0, },
 	{ GEN8_PC_CHICKEN_BITS_3, BIT(PIPE_BV) | BIT(PIPE_BR), 0, 0, 0, },
 	{ GEN8_PC_CHICKEN_BITS_4, BIT(PIPE_BV) | BIT(PIPE_BR), 0, 0, 0, },
-	{ GEN8_PC_CHICKEN_BITS_5, BIT(PIPE_BV) | BIT(PIPE_BR), 0, 0, 3, },
+	{ GEN8_PC_CHICKEN_BITS_5, BIT(PIPE_BV) | BIT(PIPE_BR), 0, 0, 0, },
 	{ GEN8_PC_DBG_ECO_CNTL, BIT(PIPE_BV) | BIT(PIPE_BR), 0, 0, 3, },
 	{ GEN8_VFD_DBG_ECO_CNTL, BIT(PIPE_BV) | BIT(PIPE_BR), 0, 0, 0, },
 	{ GEN8_VFD_CB_BV_THRESHOLD, BIT(PIPE_BV) | BIT(PIPE_BR),  0, 0, 0, },
@@ -756,6 +927,7 @@ struct gen8_nonctxt_overrides gen8_nc_overrides[] = {
 	{ GEN8_VPC_DBG_ECO_CNTL_2, BIT(PIPE_BV) | BIT(PIPE_BR), 0, 0, 3, },
 	{ GEN8_VPC_DBG_ECO_CNTL_3, BIT(PIPE_BV) | BIT(PIPE_BR), 0, 0, 3, },
 	{ GEN8_VPC_FLATSHADE_MODE_CNTL, BIT(PIPE_BV) | BIT(PIPE_BR), 0, 0, 0, },
+	{ GEN8_VSC_VISIBILITY_FLUSH_CNTL, BIT(PIPE_NONE), 0, 0, 0, },
 	{ GEN8_SP_DBG_ECO_CNTL, BIT(PIPE_NONE), 0, 0, 1, },
 	{ GEN8_SP_NC_MODE_CNTL, BIT(PIPE_NONE), 0, 0, 0, },
 	{ GEN8_SP_CHICKEN_BITS, BIT(PIPE_NONE), 0, 0, 1, },
@@ -767,6 +939,8 @@ struct gen8_nonctxt_overrides gen8_nc_overrides[] = {
 	{ GEN8_SP_CHICKEN_BITS_4, BIT(PIPE_NONE), 0, 0, 1, },
 	{ GEN8_SP_DISPATCH_CNTL, BIT(PIPE_NONE), 0, 0, 1, },
 	{ GEN8_SP_HLSQ_DBG_ECO_CNTL, BIT(PIPE_NONE), 0, 0, 1, },
+	{ GEN8_SP_HLSQ_DBG_ECO_CNTL_2, BIT(PIPE_NONE), 0, 0, 0, },
+	{ GEN8_SP_L0_PERF_TUNE, BIT(PIPE_NONE), 0, 0, 1, },
 	{ GEN8_SP_DBG_CNTL, BIT(PIPE_NONE), 0, 0, 1, },
 	{ GEN8_TPL1_NC_MODE_CNTL, BIT(PIPE_NONE), 0, 0, 0, },
 	{ GEN8_TPL1_DBG_ECO_CNTL, BIT(PIPE_NONE), 0, 0, 0, },
@@ -1204,6 +1378,7 @@ static void gen8_read_softfuse_speedbin(struct adreno_device *adreno_dev, u32 *s
 void gen8_get_gpu_feature_info(struct adreno_device *adreno_dev)
 {
 	struct kgsl_device *device = KGSL_DEVICE(adreno_dev);
+	const struct adreno_gen8_core *gen8_core = to_gen8_core(adreno_dev);
 	u32 feature_fuse = 0;
 
 	/* Get HW feature soft fuse value */
@@ -1216,6 +1391,9 @@ void gen8_get_gpu_feature_info(struct adreno_device *adreno_dev)
 	if (ADRENO_FEATURE(adreno_dev, ADRENO_LPAC))
 		adreno_dev->lpac_enabled = feature_fuse & BIT(GEN8_LPAC_SW_FUSE);
 
+	if (gen8_core->malu)
+		adreno_dev->malu_enabled = feature_fuse & BIT(GEN8_MALU_SW_FUSE);
+
 	adreno_dev->feature_fuse = feature_fuse;
 }
 
@@ -1225,18 +1403,18 @@ void gen8_get_gpu_slice_info(struct adreno_device *adreno_dev)
 	struct kgsl_device *device = KGSL_DEVICE(adreno_dev);
 	struct gen8_device *gen8_dev = container_of(adreno_dev, struct gen8_device, adreno_dev);
 
-	if (adreno_is_gen8_2_x(adreno_dev) || adreno_is_gen8_1_0(adreno_dev)) {
+	if (adreno_is_gen8_2_x(adreno_dev) || adreno_is_gen8_11_x(adreno_dev) ||
+			adreno_is_gen8_1_0(adreno_dev) || adreno_is_gen8_10_0(adreno_dev)) {
 		if (adreno_slice_mask_override != U32_MAX)
 			kgsl_regwrite(device, GEN8_GPU_CX_MISC_SLICE_ENABLE_TEST,
 					adreno_slice_mask_override);
 
 		kgsl_regread(device, GEN8_GPU_CX_MISC_SLICE_ENABLE_FINAL, &slice_mask);
-		if (adreno_is_gen8_9_0(adreno_dev))
-			slice_mask = GET_SLICE_MASK(GEN8_9_0_NUM_PHYSICAL_SLICES, slice_mask);
-		else if (adreno_is_gen8_1_0(adreno_dev))
+		if (adreno_is_gen8_1_0(adreno_dev))
 			slice_mask = GET_SLICE_MASK(GEN8_1_0_NUM_PHYSICAL_SLICES, slice_mask);
 		else
-			slice_mask = GET_SLICE_MASK(GEN8_2_0_NUM_PHYSICAL_SLICES, slice_mask);
+			slice_mask = GET_SLICE_MASK(3, slice_mask);
+
 		/*
 		 * Update the chipid with the number of active slices. This is the number
 		 * of bits set in the slice mask.
@@ -1566,6 +1744,9 @@ void gen8_patch_pwrup_reglist(struct adreno_device *adreno_dev)
 	} else if (adreno_is_gen8_1_0(adreno_dev)) {
 		reglist[items].regs = gen8_1_0_ifpc_pwrup_reglist;
 		reglist[items].count = ARRAY_SIZE(gen8_1_0_ifpc_pwrup_reglist);
+	} else if (adreno_is_gen8_11_x(adreno_dev)) {
+		reglist[items].regs = gen8_11_0_ifpc_pwrup_reglist;
+		reglist[items].count = ARRAY_SIZE(gen8_11_0_ifpc_pwrup_reglist);
 	} else {
 		reglist[items].regs = gen8_ifpc_pwrup_reglist;
 		reglist[items].count = ARRAY_SIZE(gen8_ifpc_pwrup_reglist);
@@ -1583,6 +1764,9 @@ void gen8_patch_pwrup_reglist(struct adreno_device *adreno_dev)
 	} else if (adreno_is_gen8_1_0(adreno_dev)) {
 		reglist[items].regs = gen8_1_0_pwrup_reglist;
 		reglist[items].count = ARRAY_SIZE(gen8_1_0_pwrup_reglist);
+	} else if (adreno_is_gen8_11_x(adreno_dev)) {
+		reglist[items].regs = gen8_11_0_pwrup_reglist;
+		reglist[items].count = ARRAY_SIZE(gen8_11_0_pwrup_reglist);
 	} else {
 		reglist[items].regs = gen8_pwrup_reglist;
 		reglist[items].count = ARRAY_SIZE(gen8_pwrup_reglist);
@@ -1605,7 +1789,8 @@ void gen8_patch_pwrup_reglist(struct adreno_device *adreno_dev)
 		if ((r == gen8_ifpc_pwrup_reglist ||
 				r == gen8_1_0_ifpc_pwrup_reglist ||
 				r == gen8_2_0_ifpc_pwrup_reglist ||
-				r == gen8_3_0_ifpc_pwrup_reglist)) {
+				r == gen8_3_0_ifpc_pwrup_reglist ||
+				r == gen8_11_0_ifpc_pwrup_reglist)) {
 			u32 cs_len = adreno_coresight_patch_pwrup_reglist(adreno_dev, dest);
 
 			lock->ifpc_list_len += cs_len;
@@ -1623,7 +1808,8 @@ void gen8_patch_pwrup_reglist(struct adreno_device *adreno_dev)
 			if ((reglist[i].regs == gen8_ifpc_pwrup_reglist ||
 				reglist[i].regs == gen8_1_0_ifpc_pwrup_reglist ||
 				reglist[i].regs == gen8_3_0_ifpc_pwrup_reglist ||
-				reglist[i].regs == gen8_2_0_ifpc_pwrup_reglist) &&
+				reglist[i].regs == gen8_2_0_ifpc_pwrup_reglist ||
+				reglist[i].regs == gen8_11_0_ifpc_pwrup_reglist) &&
 				(nc_overrides[j].list_type == 1)) {
 				*dest++ = nc_overrides[j].offset;
 				kgsl_regread(device, nc_overrides[j].offset, dest++);
@@ -1631,7 +1817,8 @@ void gen8_patch_pwrup_reglist(struct adreno_device *adreno_dev)
 			} else if ((reglist[i].regs == gen8_pwrup_reglist ||
 				reglist[i].regs == gen8_1_0_pwrup_reglist ||
 				reglist[i].regs == gen8_3_0_pwrup_reglist ||
-				reglist[i].regs == gen8_2_0_pwrup_reglist) &&
+				reglist[i].regs == gen8_2_0_pwrup_reglist ||
+				reglist[i].regs == gen8_11_0_pwrup_reglist) &&
 				(nc_overrides[j].list_type == 2)) {
 				*dest++ = nc_overrides[j].offset;
 				kgsl_regread(device, nc_overrides[j].offset, dest++);
@@ -1679,6 +1866,9 @@ void gen8_patch_pwrup_reglist(struct adreno_device *adreno_dev)
 		} else if (adreno_is_gen8_1_0(adreno_dev)) {
 			ext_list = gen8_1_0_pwrup_extlist;
 			ext_len = ARRAY_SIZE(gen8_1_0_pwrup_extlist);
+		} else if (adreno_is_gen8_11_x(adreno_dev)) {
+			ext_list = gen8_11_0_pwrup_extlist;
+			ext_len = ARRAY_SIZE(gen8_11_0_pwrup_extlist);
 		} else {
 			ext_list = gen8_0_0_pwrup_extlist;
 			ext_len = ARRAY_SIZE(gen8_0_0_pwrup_extlist);
@@ -1787,6 +1977,22 @@ static void _set_secvid(struct kgsl_device *device)
 static u64 gen8_get_uche_trap_base(void)
 {
 	return GEN8_UCHE_TRAP_BASE;
+}
+
+void gen8_setup_adreno_props(struct adreno_device *adreno_dev)
+{
+	struct kgsl_device *device = KGSL_DEVICE(adreno_dev);
+	u32 reg;
+
+	if (!adreno_is_gen8_11_x(adreno_dev))
+		return;
+
+	/* Store the multidraw and visibility flush settings */
+	kgsl_regread(device, GEN8_CP_MULTIDRAW_CNTL, &reg);
+	adreno_dev->multidraw_mode = FIELD_GET(GENMASK(0, 0), reg);
+	kgsl_regread(device, GEN8_VSC_VISIBILITY_FLUSH_CNTL, &reg);
+	adreno_dev->viz_flush_draw_count = FIELD_GET(GENMASK(7, 0), reg);
+	adreno_dev->viz_flush_prim_count = FIELD_GET(GENMASK(23, 8), reg);
 }
 
 /*
@@ -1989,6 +2195,9 @@ int gen8_start(struct adreno_device *adreno_dev)
 	/* Program noncontext registers */
 	gen8_nonctxt_regconfig(adreno_dev);
 
+	/* Read GPU registers with the GMU OOB set to update adreno props */
+	gen8_setup_adreno_props(adreno_dev);
+
 	/* Enable hardware hang detection */
 	kgsl_regwrite(device, GEN8_RBBM_INTERFACE_HANG_INT_CNTL, BIT(30) |
 			FIELD_PREP(GENMASK(27, 0), gen8_core->hang_detect_cycles));
@@ -2015,6 +2224,8 @@ int gen8_start(struct adreno_device *adreno_dev)
 	_llc_gpuhtw_slice_activate(adreno_dev);
 
 	for (pipe_id = PIPE_BR; pipe_id <= PIPE_DDE_BV; pipe_id++) {
+		u32 val = CP_SW_FAULT_STATUS_MASK_PIPE;
+
 		if ((pipe_id == PIPE_LPAC) && !ADRENO_FEATURE(adreno_dev, ADRENO_LPAC))
 			continue;
 		if (((pipe_id == PIPE_AQE0) || (pipe_id == PIPE_AQE1)) &&
@@ -2024,8 +2235,14 @@ int gen8_start(struct adreno_device *adreno_dev)
 		gen8_regwrite_aperture(device, GEN8_CP_APRIV_CNTL_PIPE,
 			(pipe_id == PIPE_BR ? GEN8_BR_APRIV_DEFAULT : GEN8_APRIV_DEFAULT),
 			pipe_id, 0, 0);
+
+		/* Disable the CP_SW_RTWROVF bit for BV pipe to prevent false interrupt from CP */
+		if (adreno_is_gen8_11_x(adreno_dev) && (pipe_id == PIPE_BV))
+			val &= ~(BIT(CP_SW_RTWROVF));
+
 		gen8_regwrite_aperture(device, GEN8_CP_INTERRUPT_STATUS_MASK_PIPE,
-			CP_SW_FAULT_STATUS_MASK_PIPE, pipe_id, 0, 0);
+			val, pipe_id, 0, 0);
+
 		gen8_regwrite_aperture(device, GEN8_CP_HW_FAULT_STATUS_MASK_PIPE,
 			CP_HW_FAULT_STATUS_MASK_PIPE, pipe_id, 0, 0);
 	}
@@ -2043,10 +2260,12 @@ int gen8_start(struct adreno_device *adreno_dev)
 	 * Enable hardware clock gating here to prevent any register access
 	 * issue due to internal clock gating.
 	 *
-	 * Gen8_2_0 and gen8_1_0 need to set up HW clock gating after
+	 * Gen8_2_0, gen8_1_0 and gen8_10_0 need to set up HW clock gating after
 	 * CP INIT in the bootup sequence.
 	 */
-	if (!(adreno_is_gen8_2_x(adreno_dev) || adreno_is_gen8_1_0(adreno_dev)))
+	if (!(adreno_is_gen8_2_x(adreno_dev) ||
+		  adreno_is_gen8_1_0(adreno_dev) ||
+		  adreno_is_gen8_10_0(adreno_dev)))
 		gen8_hwcg_set(adreno_dev, true);
 
 	/* Ensure very last register write is finished before we return from this function */
@@ -2335,7 +2554,8 @@ int gen8_rb_start(struct adreno_device *adreno_dev)
 	}
 
 	ret = gen8_post_start(adreno_dev);
-	if (!ret && (adreno_is_gen8_2_x(adreno_dev) || adreno_is_gen8_1_0(adreno_dev)))
+	if (!ret && (adreno_is_gen8_2_x(adreno_dev) || adreno_is_gen8_1_0(adreno_dev) ||
+			adreno_is_gen8_10_0(adreno_dev)))
 		gen8_hwcg_set(adreno_dev, true);
 
 	return ret;
@@ -2713,7 +2933,7 @@ static void gen8_gpc_err_int_callback(struct adreno_device *adreno_dev, int bit)
 static void gen8_swfuse_violation_callback(struct adreno_device *adreno_dev, int bit)
 {
 	struct kgsl_device *device = KGSL_DEVICE(adreno_dev);
-	u32 status;
+	u32 status, mask = GENMASK(GEN8_RAYTRACING_SW_FUSE, GEN8_LPAC_SW_FUSE);
 
 	/*
 	 * SWFUSEVIOLATION error is typically the result of enabling software
@@ -2723,6 +2943,7 @@ static void gen8_swfuse_violation_callback(struct adreno_device *adreno_dev, int
 	 * blender HW pipeline.
 	 * 2) LPAC (BIT:1): Fault
 	 * 3) RAYTRACING (BIT:2): Fault
+	 * 4) mALU (BIT:3): Fault
 	 */
 	kgsl_regread(device, GEN8_RBBM_SW_FUSE_INT_STATUS, &status);
 
@@ -2735,8 +2956,11 @@ static void gen8_swfuse_violation_callback(struct adreno_device *adreno_dev, int
 	dev_crit_ratelimited(device->dev,
 		"RBBM: SW Feature Fuse violation status=0x%8.8x\n", status);
 
-	/* Trigger a fault in the dispatcher for LPAC and RAYTRACING violation */
-	if (status & GENMASK(GEN8_RAYTRACING_SW_FUSE, GEN8_LPAC_SW_FUSE)) {
+	if (adreno_dev->malu_enabled)
+		mask |= BIT(GEN8_MALU_SW_FUSE);
+
+	/* Trigger a fault in the dispatcher for LPAC, RAYTRACING and mALU violation */
+	if (status & mask) {
 		adreno_irqctrl(adreno_dev, 0);
 		adreno_scheduler_fault(adreno_dev, ADRENO_HARD_FAULT);
 	}
@@ -3156,6 +3380,8 @@ int gen8_perfcounter_update(struct adreno_device *adreno_dev,
 	u32 offset = ((lock->ifpc_list_len + lock->preemption_list_len) * 2) +
 			(gen8_dev->ext_pwrup_list_len * 3);
 	u32 *data = ptr + sizeof(*lock);
+	u64 reglist_size_dwords = adreno_dev->pwrup_reglist->size / sizeof(u32);
+	u64 lock_size_dwords = sizeof(*lock) / sizeof(u32);
 	int i, start_offset = -1;
 	u16 perfcntr_list_len = lock->dynamic_list_len - gen8_dev->ext_pwrup_list_len;
 	unsigned long irq_flags;
@@ -3186,8 +3412,8 @@ int gen8_perfcounter_update(struct adreno_device *adreno_dev,
 	}
 
 	/* Ensure there is enough space in the reglist buffer for new triplets */
-	if ((start_offset == -1) && (offset + (pending_triplets * 3)) >=
-		(adreno_dev->pwrup_reglist->size / sizeof(u32))) {
+	if ((start_offset == -1) && ((offset + (pending_triplets * 3) + lock_size_dwords) >=
+		reglist_size_dwords)) {
 		ret = -ENOSPC;
 		goto err;
 	}
@@ -3450,8 +3676,14 @@ err:
 
 static void gen8_swfuse_irqctrl(struct adreno_device *adreno_dev, bool state)
 {
-		kgsl_regwrite(KGSL_DEVICE(adreno_dev), GEN8_RBBM_SW_FUSE_INT_MASK,
-			state ? GEN8_SW_FUSE_INT_MASK : 0);
+	const struct adreno_gen8_core *gen8_core = to_gen8_core(adreno_dev);
+	u32 mask = GEN8_SW_FUSE_INT_MASK;
+
+	if (gen8_core->malu)
+		mask |= BIT(GEN8_MALU_SW_FUSE);
+
+	kgsl_regwrite(KGSL_DEVICE(adreno_dev), GEN8_RBBM_SW_FUSE_INT_MASK,
+			state ? mask : 0);
 }
 
 static void gen8_lpac_fault_header(struct adreno_device *adreno_dev,
@@ -3591,14 +3823,22 @@ u32 gen8_get_gmem_size(struct adreno_device *adreno_dev)
 		return (adreno_dev->gpucore->gmem_size / GEN8_1_0_NUM_PHYSICAL_SLICES) *
 		gen8_get_num_slices(adreno_dev);
 
-	if (adreno_is_gen8_2_x(adreno_dev)) {
+	if (adreno_is_gen8_2_x(adreno_dev) || adreno_is_gen8_11_x(adreno_dev)) {
 		if (adreno_is_gen8_9_0(adreno_dev))
 			return (adreno_dev->gpucore->gmem_size / GEN8_9_0_NUM_PHYSICAL_SLICES) *
+			gen8_get_num_slices(adreno_dev);
+		else if (adreno_is_gen8_11_x(adreno_dev))
+			return (adreno_dev->gpucore->gmem_size / GEN8_11_0_NUM_PHYSICAL_SLICES) *
 			gen8_get_num_slices(adreno_dev);
 		else
 			return (adreno_dev->gpucore->gmem_size / GEN8_2_0_NUM_PHYSICAL_SLICES) *
 			gen8_get_num_slices(adreno_dev);
 	}
+
+	if (adreno_is_gen8_10_0(adreno_dev))
+		return (adreno_dev->gpucore->gmem_size / GEN8_10_0_NUM_PHYSICAL_SLICES) *
+			gen8_get_num_slices(adreno_dev);
+
 	return adreno_dev->gpucore->gmem_size;
 }
 

@@ -518,6 +518,8 @@
 
 #define GEN8_RBBM_PERFCTR_SRAM_INIT_CMD          0x449
 #define GEN8_RBBM_PERFCTR_FLUSH_HOST_CMD         0x44c
+#define GEN8_RBBM_GBIF_GX_DBG_HALT_CTRL          0x44d
+#define GEN8_RBBM_GBIF_GX_DBG_HALT_STATUS        0x44e
 #define GEN8_RBBM_PERFCTR_CNTL                   0x460
 
 /* GPU Slice registers */
@@ -530,7 +532,6 @@
 #define GEN8_RBBM_SLICE_PERFCTR_SRAM_INIT_CMD     0x5e8
 #define GEN8_RBBM_SLICE_PERFCTR_FLUSH_HOST_CMD    0x5eb
 #define GEN8_RBBM_SLICE_NC_MODE_CNTL              0x5ec
-#define GEN8_VSC_KMD_DBG_ECO_CNTL                 0xdf0
 
 /* DBGC_CFG registers */
 #define GEN8_DBGC_CFG_DBGBUS_SEL_A               0x600
@@ -753,6 +754,8 @@
 /* VSC registers */
 #define GEN8_VSC_PERFCTR_VSC_SEL_0          0xcd8
 #define GEN8_VSC_PERFCTR_VSC_SEL_1          0xcd9
+#define GEN8_VSC_KMD_DBG_ECO_CNTL           0xdf0
+#define GEN8_VSC_VISIBILITY_FLUSH_CNTL      0xdf8
 
 /* CP registers */
 #define GEN8_CP_RB_BASE_LO_GC                                  0x800
@@ -793,6 +796,7 @@
 #define GEN8_CP_CRASH_DUMP_SCRIPT_BASE_HI                      0x843
 #define GEN8_CP_CRASH_DUMP_CNTL                                0x844
 #define GEN8_CP_CRASH_DUMP_STATUS                              0x845
+#define GEN8_CP_MULTIDRAW_CNTL                                 0x84a
 #define GEN8_CP_DBG_ECO_CNTL                                   0x84b
 #define GEN8_CP_MISC_CNTL                                      0x84c
 #define GEN8_CP_APRIV_CNTL_PIPE                                0x84d
@@ -1103,10 +1107,9 @@
 #define GEN8_PC_PERFCTR_PC_SEL_15           0x9e3f
 #define GEN8_PC_CHICKEN_BITS_1              0x9e50
 #define GEN8_PC_DBG_ECO_CNTL                0x9e53
-#define GEN8_PC_CHICKEN_BITS_2              0x9f20
-#define GEN8_PC_CHICKEN_BITS_5              0x9f23
-
 #define GEN8_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1 0x9e64
+#define GEN8_PC_US_CONTEXT_SWITCH_SAVE_RESTORE_ADDR 0x9e6c
+#define GEN8_PC_US_CONTEXT_SWITCH_SAVE_RESTORE_DATA 0x9e6d
 #define GEN8_PC_SLICE_PERFCTR_PC_SEL_0      0x9f00
 #define GEN8_PC_SLICE_PERFCTR_PC_SEL_1      0x9f01
 #define GEN8_PC_SLICE_PERFCTR_PC_SEL_2      0x9f02
@@ -1123,6 +1126,8 @@
 #define GEN8_PC_SLICE_PERFCTR_PC_SEL_13     0x9f0d
 #define GEN8_PC_SLICE_PERFCTR_PC_SEL_14     0x9f0e
 #define GEN8_PC_SLICE_PERFCTR_PC_SEL_15     0x9f0f
+#define GEN8_PC_CHICKEN_BITS_2              0x9f20
+#define GEN8_PC_CHICKEN_BITS_5              0x9f23
 
 
 /* VFD registers */
@@ -1162,11 +1167,13 @@
 #define GEN8_SP_CHICKEN_BITS_3                   0xae0a
 #define GEN8_SP_CHICKEN_BITS_4                   0xae0b
 #define GEN8_SP_STATUS                           0xae0c
+#define GEN8_SP_L0_PERF_TUNE                     0xae0e
 #define GEN8_SP_PERFCTR_SHADER_MASK              0xae0f
 #define GEN8_SP_HLSQ_GC_GMEM_RANGE_MIN_LO        0xae10
 #define GEN8_SP_HLSQ_GC_GMEM_RANGE_MIN_HI        0xae11
 #define GEN8_SP_HLSQ_LPAC_GMEM_RANGE_MIN_LO      0xae12
 #define GEN8_SP_HLSQ_LPAC_GMEM_RANGE_MIN_HI      0xae13
+#define GEN8_SP_CHICKEN_BITS_5                   0xae14
 #define GEN8_SP_LPAC_CPI_STATUS                  0xae15
 #define GEN8_SP_LPAC_DBG_STATUS                  0xae16
 #define GEN8_SP_LPAC_ISDB_BATCH_COUNT            0xae17
@@ -1317,6 +1324,9 @@
 #define GEN8_GBIF_CLIENT_HALT_MASK        BIT(0)
 #define GEN8_GBIF_ARB_HALT_MASK           BIT(1)
 #define GEN8_GBIF_GX_HALT_MASK            BIT(0)
+#define GEN8_GBIF_GX_HALT_ACK_MASK        BIT(0)
+#define GEN8_GBIF_GX_HALT_CTRL_MASK       (BIT(4) | BIT(0))
+#define GEN8_GBIF_GX_HALT_STATUS_MASK     BIT(1)
 #define GEN8_GBIF_REINIT_GX_IDLE_MASK     BIT(0)
 
 #define GEN8_GBIF_PERF_PWR_CNT_EN                0x3cc0
@@ -1398,6 +1408,9 @@
 #define GEN8_CX_DBGC_CFG_DBGBUS_MISC_MODE               0x18444
 #define GEN8_CX_DBGC_TCM_DBG_ADDR                       0x18580
 #define GEN8_CX_DBGC_TCM_DBG_DATA                       0x18581
+
+#define GEN8_GPU_GX_CLKCTL_GX_MALU_GDSCR		0x1a08e
+#define GEN8_GPU_GX_CLKCTL_GX_MALU_CFG_GDSCR		0x1a08f
 
 /* GMU control registers */
 #define GEN8_GMU_CM3_ITCM_START			0x1b400
@@ -1662,6 +1675,7 @@
 #define GEN8_GPU_CX_MISC_SMMU_INTR_MASK1	0x27847
 #define GEN8_GPU_CX_MISC_AO_COUNTER_LO		0x27880
 #define GEN8_GPU_CX_MISC_AO_COUNTER_HI		0x27881
+#define GEN8_GPU_CX_MISC_GFX_PWR_CLK_STATUS	0x27883
 #define GEN8_GPU_CX_MISC_SLICE_ENABLE_TEST	0x27886
 #define GEN8_GPU_CX_MISC_SLICE_ENABLE_FINAL     0x27887
 #define GEN8_GPU_CX_MISC_SW_FUSE_VALUE		0x27c00
@@ -1671,6 +1685,7 @@
 #define GEN8_FASTBLEND_SW_FUSE		0
 #define GEN8_LPAC_SW_FUSE		1
 #define GEN8_RAYTRACING_SW_FUSE		2
+#define GEN8_MALU_SW_FUSE		3
 
 #define GEN8_SW_FUSE_INT_MASK \
 	((1 << GEN8_FASTBLEND_SW_FUSE) |	\
