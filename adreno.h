@@ -194,6 +194,8 @@
 #define ADRENO_TSENSE_DYNAMIC_PERIOD BIT(27)
 /* Enable GMU Based AB voting */
 #define ADRENO_GMU_AB BIT(28)
+/* Enable GMU Fast Context Destroy optimization */
+#define ADRENO_GMU_FAST_CONTEXT_DESTROY BIT(29)
 /*
  * The target uses the GPU_CX_MISC_SW_FUSE_FREQ_LIMIT_STATUS register to
  * get combined (HW + SW) speedbin when no nvmem speed_bin cell exists.
@@ -326,6 +328,10 @@ enum adreno_gpurev {
 	ADRENO_REV_GEN8_6_0 = ADRENO_GPUREV_VALUE(8, 6, 0),
 	ADRENO_REV_GEN8_8_0 = ADRENO_GPUREV_VALUE(8, 8, 0),
 	ADRENO_REV_GEN8_9_0 = ADRENO_GPUREV_VALUE(8, 9, 0),
+	ADRENO_REV_GEN8_10_0 = ADRENO_GPUREV_VALUE(8, 10, 0),
+	ADRENO_REV_GEN8_11_0 = ADRENO_GPUREV_VALUE(8, 11, 0),
+	ADRENO_REV_GEN8_11_1 = ADRENO_GPUREV_VALUE(8, 11, 1),
+	ADRENO_REV_GEN8_14_0 = ADRENO_GPUREV_VALUE(8, 14, 0),
 };
 
 #define ADRENO_SOFT_FAULT BIT(0)
@@ -762,6 +768,8 @@ struct adreno_device {
 	bool dms_enabled;
 	/** @minbw_enabled: True if minbw vote is enabled */
 	bool minbw_enabled;
+	/** @malu_enabled: True if mALU is enabled */
+	bool malu_enabled;
 	/** @preempt_override: True if command line param enables preemption */
 	bool preempt_override;
 	struct kgsl_memdesc *profile_buffer;
@@ -922,6 +930,12 @@ struct adreno_device {
 	 * registers
 	 */
 	struct adreno_ubwc_props ubwc_props;
+	/** @multidraw_mode: Whether PC unroll is enabled for multidraw **/
+	u32 multidraw_mode;
+	/** @viz_flush_draw_count: Draw count to flush visibility stream **/
+	u32 viz_flush_draw_count;
+	/** @viz_flush_prim_count: Prim count to flush visibility stream **/
+	u32 viz_flush_prim_count;
 };
 
 /* Time to wait for suspend recovery gate to complete */
@@ -968,6 +982,10 @@ enum adreno_device_flags {
 	ADRENO_DEVICE_RESET_RECOVERY = 18,
 	/** @ADRENO_DEVICE_FIRST_BOOT_DONE: Set if the ADRENO device first boot is done */
 	ADRENO_DEVICE_FIRST_BOOT_DONE = 19,
+	/** @ADRENO_DEVICE_FAST_CONTEXT_DESTROY: Set if fast context destroy is enabled on GMU */
+	ADRENO_DEVICE_FAST_CONTEXT_DESTROY = 20,
+	/** @ADRENO_DEVICE_ALLOW_MALU_WORKLOAD: mALU workload is supported by GMU and GPU */
+	ADRENO_DEVICE_ALLOW_MALU_WORKLOAD = 21,
 };
 
 /**
@@ -1505,6 +1523,10 @@ ADRENO_TARGET(gen8_5_0, ADRENO_REV_GEN8_5_0)
 ADRENO_TARGET(gen8_6_0, ADRENO_REV_GEN8_6_0)
 ADRENO_TARGET(gen8_8_0, ADRENO_REV_GEN8_8_0)
 ADRENO_TARGET(gen8_9_0, ADRENO_REV_GEN8_9_0)
+ADRENO_TARGET(gen8_10_0, ADRENO_REV_GEN8_10_0)
+ADRENO_TARGET(gen8_11_0, ADRENO_REV_GEN8_11_0)
+ADRENO_TARGET(gen8_11_1, ADRENO_REV_GEN8_11_1)
+ADRENO_TARGET(gen8_14_0, ADRENO_REV_GEN8_14_0)
 
 static inline int adreno_is_gen7_9_x(struct adreno_device *adreno_dev)
 {
@@ -1529,6 +1551,12 @@ static inline int adreno_is_gen7_2_x_family(struct adreno_device *adreno_dev)
 		adreno_is_gen7_9_x(adreno_dev) || adreno_is_gen7_14_0_family(adreno_dev) ||
 		adreno_is_gen7_11_0(adreno_dev) || adreno_is_gen7_15_0(adreno_dev) ||
 		adreno_is_gen7_13_0(adreno_dev);
+}
+
+static inline int adreno_is_gen8_11_x(struct adreno_device *adreno_dev)
+{
+	return adreno_is_gen8_11_0(adreno_dev) || adreno_is_gen8_11_1(adreno_dev) ||
+		adreno_is_gen8_14_0(adreno_dev);
 }
 
 static inline int adreno_is_gen8_2_x(struct adreno_device *adreno_dev)
@@ -1837,6 +1865,18 @@ static inline bool adreno_is_preemption_enabled(
 				struct adreno_device *adreno_dev)
 {
 	return test_bit(ADRENO_DEVICE_PREEMPTION, &adreno_dev->priv);
+}
+
+/**
+ * adreno_is_fast_context_destroy_enabled() - Check whether the GMU fast context
+ * destroy optimization is statically enabled and if the GMU supports the
+ * capability.
+ * @adreno_dev: Pointer to the adreno_device struct
+ */
+static inline bool adreno_is_fast_context_destroy_enabled(
+				struct adreno_device *adreno_dev)
+{
+	return test_bit(ADRENO_DEVICE_FAST_CONTEXT_DESTROY, &adreno_dev->priv);
 }
 
 

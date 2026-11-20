@@ -295,6 +295,16 @@ int gen8_ringbuffer_addcmds(struct adreno_device *adreno_dev,
 	cmds[index++] = cp_type7_packet(CP_THREAD_CONTROL, 1);
 	cmds[index++] = CP_SET_THREAD_BR;
 
+	/*
+	 * The POWER_CONTROL packet should always be after IFPC disable MARKER
+	 * to avoid opcode errors
+	 */
+	if (flags & F_MALU) {
+		cmds[index++] = cp_type7_packet(CP_POWER_CONTROL, 2);
+		cmds[index++] = 1; /* Control mALU power */
+		cmds[index++] = 1; /* Turn on mALU */
+	}
+
 	profile_gpuaddr = adreno_profile_preib_processing(adreno_dev,
 		drawctxt, &profile_dwords);
 
@@ -526,7 +536,7 @@ static int gen8_drawctxt_switch(struct adreno_device *adreno_dev,
 			ADRENO_DRAWOBJ_PROFILE_OFFSET((cmdobj)->profile_index, \
 				field))
 
-#define GEN8_COMMAND_DWORDS 60
+#define GEN8_COMMAND_DWORDS 63
 
 int gen8_ringbuffer_submitcmd(struct adreno_device *adreno_dev,
 		struct kgsl_drawobj_cmd *cmdobj, u32 flags,
@@ -644,6 +654,9 @@ int gen8_ringbuffer_submitcmd(struct adreno_device *adreno_dev,
 	}
 
 	adreno_drawobj_set_constraint(device, drawobj);
+
+	if (drawobj->flags & KGSL_DRAWOBJ_USES_MALU)
+		flags |= F_MALU;
 
 	ret = gen8_ringbuffer_addcmds(adreno_dev, drawctxt->rb, drawctxt,
 		flags, cmds, index, drawobj->timestamp, time);
