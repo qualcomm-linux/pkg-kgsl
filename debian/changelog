@@ -1,4 +1,4 @@
-kgsl (2.0.1-0qli1) UNRELEASED; urgency=medium
+kgsl (2.0.1-0qli1) resolute; urgency=medium
 
   [ Maintainers.pkg-kgsl ]
   * Use INIT_WORK_ONSTACK() in adreno_request_firmware().
@@ -67,7 +67,7 @@ kgsl (2.0.1-0qli1) UNRELEASED; urgency=medium
   [ GitHub Service Bot ]
   * New upstream release
 
- -- GitHub Service Bot <githubservice@qti.qualcomm.com>  Wed, 18 Nov 2026 09:41:29 +0000
+ -- GitHub Service Bot <githubservice@qti.qualcomm.com>  Tue, 24 Nov 2026 11:31:10 +0000
 
 kgsl (2.0.0-0qli1) resolute; urgency=medium
 
