@@ -1,7 +1,68 @@
-kgsl (2.0.1-0qli1~) UNRELEASED; urgency=medium
+kgsl (2.0.1-0qli1) UNRELEASED; urgency=medium
 
   [ Maintainers.pkg-kgsl ]
-  * WIP — update changelog before next release
+  * Use INIT_WORK_ONSTACK() in adreno_request_firmware().
+  * Fix buffer overflow check for perfcounter dynamic list.
+  * Add gen8_11_x RegProtect list.
+  * Add gen8_11_x NC register lists.
+  * Update gen8_11_x NC register programming.
+  * Add gen8_11_0 snapshot header.
+  * Add gen8_11_0 GPU core.
+  * Add support for GMU MX GDSC.
+  * Add support for three rail memory.
+  * Add PC indexed registers to snapshot.
+  * Add external core registers to gen8_11_0 snapshot.
+  * Fast context destroy optimization.
+  * Disable malu gdsc during hard reset.
+  * Add support for KGSL_CMDBATCH_USES_MALU flag.
+  * Enable CLX/PLX/IFF features for Gen8_11_0.
+  * Disable GS Quad primitive for gen8_11_0.
+  * Disable pre-mvcc dead draw merge scheme for gen8_11_0.
+  * Use CX_MISC_GFX_PWR_CLK_STATUS for GX status on gen_8_11_0.
+  * Mask bit CP_SW_RTWROVF for BV pipe for gen8_11_0.
+  * Update gen8_11_0 snapshot register list.
+  * Add RBBM status info to snapshot.
+  * Correctly terminate the gen8_11_0 snapshot register list.
+  * Add sized debugbus in snapshot for gen8_11_0.
+  * Modify the debugbus list for gen8_11_0.
+  * Add GEN8_CP_MULTIDRAW_CNTL to the gen8_11_0 pwrup list.
+  * Fix HLSQ_SHADOW_SP_RAM sizes and GMU AO accesses on gen8_11_0.
+  * Update the buswidth for gen8_11_0 target.
+  * Update gen8_11_0 NC register programming.
+  * Add properties to query multidraw and visibility_flush registers.
+  * Disable VFD sideband compression.
+  * Add gen8_11_1 GPU core.
+  * Enable RB BAC strobes for gen8_11_x.
+  * Update gen8_11_1 NC register programming.
+  * Enable L1A preemption for gen8_11_x.
+  * Remove non HLOS readable registers from snapshot.
+  * Dump Malu status information in snapshot.
+  * Move some RBBM registers to pre crashdumper list for gen8_11_x.
+  * Disable HLSQ large instruction async mode check on gen8_11_x.
+  * Add support for KGSL_PROP_IS_MALU_ENABLED.
+  * Update MX domain memory voltage select for gen8_11_x.
+  * Increase the maximum payload size for HFI message queue.
+  * Update CLX table for gen8_11_x.
+  * Dump secvid registers through AHB path for gen8_11_0.
+  * Update GBIF GX halt/ack for gen8_11_x.
+  * Fix nc_override restore on gen8_11_0.
+  * Avoid DRAW_INVISIBLE_SKIP_INDEX token in visibility stream for gen8_11_x.
+  * Add gen8_14_0 GPU core.
+  * Add gen8_14_0 NC register lists.
+  * Update gen8_14_0 NC register programming.
+  * Enable L1 preemption for gen8_14_0 gpu.
+  * Update gen8_14_0 NC and GBIF register programming.
+  * Disable HLSQ large instruction async mode check on gen8_14_0.
+  * Update ctxt record size for gen8_14_0.
+  * Update gen8_14_0 NC register programming.
+  * Enable CLX feature for gen8_14_0 gpu.
+  * Skip sending gmu scaling buffer for unsupported targets.
+  * Enable ACD on gen8_14_0 GPU.
+  * Add support for Gen8_11_x and Gen8_14_0 GPU with standard DT bindings.
+  * Add support for gen8_10_0 GPU.
+  * Add snapshot for gen8_10_0.
+  * Enable preemption and content protection for Gen8_10_0.
+  * Add Gen8_10_0 with std DT bindings and fix Gen8_1_0 gpu_model.
 
   [ GitHub Service Bot ]
   * New upstream release
