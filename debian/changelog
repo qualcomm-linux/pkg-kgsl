@@ -1,7 +1,8 @@
-kgsl (2.0.2-0qli1~) UNRELEASED; urgency=medium
+kgsl (2.0.2-0qli1) UNRELEASED; urgency=medium
 
   [ Maintainers.pkg-kgsl ]
-  * WIP — update changelog before next release
+  * Set SMMU aperture from a register list without SCM.
+  * Detect zap-shader presence and handle scm errors accordingly.
 
   [ GitHub Service Bot ]
   * New upstream release
